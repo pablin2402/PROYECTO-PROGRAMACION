@@ -1,6 +1,5 @@
 package Student;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
@@ -19,6 +18,9 @@ import Conexion.Conexion;
 
 public class Student extends JFrame {
 
+	/**
+	 * 
+	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTable tabla;
@@ -43,48 +45,36 @@ public class Student extends JFrame {
 	 * Create the frame.
 	 */
 	public Student() {
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1500, 900);
+		setBounds(100, 100, 770, 429);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		final DefaultTableModel modelo = new DefaultTableModel();
 
-		JPanel panel = new JPanel();
-		panel.setBackground(Color.DARK_GRAY);
-		panel.setBounds(20, 78, 1450, 750);
-		contentPane.add(panel, BorderLayout.NORTH);
-		panel.setLayout(null);
-
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportBorder(null);
-		scrollPane.setBounds(10, 11, 1428, 652);
-		panel.add(scrollPane);
-		tabla = new JTable(modelo);
-		scrollPane.setViewportView(tabla);
-
-		JButton btnNewButton = new JButton("CONSULTAR");
+		JButton btnNewButton = new JButton("Consultar");
 		btnNewButton.addActionListener(new ActionListener() {
 
 			public void actionPerformed(ActionEvent arg0) {
+
 				// Limpiamos el modelo cada que hagamos una consulta
 				modelo.setRowCount(0);
 				modelo.setColumnCount(0);
 				// notifies the JTable that the model has changed
 				// Creamos las columnas.
 
-				modelo.addColumn("Código de Estudiante");
 				modelo.addColumn("Nombre");
-				modelo.addColumn("Dirección");
-				modelo.addColumn("Correo Electrónico");
+				modelo.addColumn("Direcciòn");
+				modelo.addColumn("Còdigo Estudiante");
+
 				ResultSet rs;
 
 				try {
 
-					Conexion conexion = new Conexion("root", "", "neptuno");
-					conexion.consulta("select producto, cantidad_por_unidad, precio_unidad from productos ");
+					Conexion conexion = new Conexion("root", "", "universidad");
+					conexion.consulta("select Nombre, Dirección, cod_Estudiante from estudiante ");
 
 					rs = conexion.resultado();
 
@@ -117,7 +107,20 @@ public class Student extends JFrame {
 
 			}
 		});
-		btnNewButton.setBounds(1225, 676, 196, 48);
-		panel.add(btnNewButton);
+
+		JPanel panel = new JPanel();
+		panel.setBackground(Color.LIGHT_GRAY);
+		panel.setBounds(20, 78, 438, 267);
+		contentPane.add(panel);
+		panel.setLayout(null);
+
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportBorder(null);
+		scrollPane.setBounds(10, 11, 399, 245);
+		panel.add(scrollPane);
+		tabla = new JTable(modelo);
+		scrollPane.setViewportView(tabla);
+		btnNewButton.setBounds(472, 11, 89, 23);
+		contentPane.add(btnNewButton);
 	}
 }
