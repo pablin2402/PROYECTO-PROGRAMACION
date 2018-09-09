@@ -24,6 +24,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Conexion.Conexion;
+import Ingresar.Ingresardocente;
 
 public class Profesor extends JFrame {
 
@@ -129,17 +130,17 @@ public class Profesor extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(20, 129, 1100, 499);
+		panel.setBounds(20, 183, 1100, 504);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
-		scrollPane.setBounds(12, 13, 998, 473);
+		scrollPane.setBounds(12, 13, 998, 478);
 		panel.add(scrollPane);
 		tabla = new JTable(modelo);
 		scrollPane.setViewportView(tabla);
-		btnNewButton.setBounds(963, 641, 162, 46);
+		btnNewButton.setBounds(976, 124, 162, 46);
 		contentPane.add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
@@ -192,9 +193,29 @@ public class Profesor extends JFrame {
 		panel_1.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Search_32px.png")));
-		lblNewLabel_1.setBounds(900, 641, 56, 46);
+		lblNewLabel_1.setBounds(908, 124, 56, 46);
 		contentPane.add(lblNewLabel_1);
+		lblNewLabel_1.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Search_32px.png")));
+
+		JButton btnIngresar = new JButton("INGRESAR");
+		btnIngresar.addActionListener(new ActionListener() {
+			/***
+			 * Cuando se presiona el boton llama a Ingresar maestro
+			 */
+			public void actionPerformed(ActionEvent e) {
+				Ingresardocente i = new Ingresardocente();
+				i.setVisible(true);
+
+			}
+		});
+		btnIngresar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		btnIngresar.setBounds(62, 124, 162, 46);
+		contentPane.add(btnIngresar);
+
+		JLabel label = new JLabel("");
+		label.setIcon(new ImageIcon(Profesor.class.getResource("/imagenes/icons8-m\u00E1s-32.png")));
+		label.setBounds(22, 124, 56, 46);
+		contentPane.add(label);
 		setResizable(false);
 		setUndecorated(true);
 	}

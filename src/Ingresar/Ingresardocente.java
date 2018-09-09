@@ -6,8 +6,6 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.sql.SQLException;
-import java.sql.Statement;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -16,20 +14,13 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
-import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+import javax.swing.UIManager;
 import javax.swing.border.MatteBorder;
 
-import Conexion.Conexion;
-
-public class Ingresaralumno extends JFrame {
+public class Ingresardocente extends JFrame {
 
 	private JPanel contentPane;
-	private JTextField codigoe;
-	private JTextField codigoc;
-	private JTextField name;
-	private JTextField direction;
-	private JTextField email;
 
 	/**
 	 * Launch the application.
@@ -38,7 +29,7 @@ public class Ingresaralumno extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Ingresaralumno frame = new Ingresaralumno();
+					Ingresardocente frame = new Ingresardocente();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -50,7 +41,7 @@ public class Ingresaralumno extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Ingresaralumno() {
+	public Ingresardocente() {
 		/*
 		 * Se importo un jar llamado rsutilities Con este se puede configurar la ventana
 		 * 
@@ -71,14 +62,14 @@ public class Ingresaralumno extends JFrame {
 		 * 
 		 */
 
-		JPanel panelingresar = new JPanel();
-		panelingresar.setBounds(0, 0, 650, 82);
-		contentPane.add(panelingresar);
-		panelingresar.setLayout(null);
+		JPanel panel = new JPanel();
+		panel.setBounds(0, 0, 650, 82);
+		contentPane.add(panel);
+		panel.setLayout(null);
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.setBounds(587, 26, 32, 32);
-		panelingresar.add(lblNewLabel);
+		panel.add(lblNewLabel);
 		lblNewLabel.addMouseListener(new MouseAdapter() {
 			/***
 			 * Nuevo icono para cerrar con Joptionpane preguntando si desea salir :v
@@ -110,117 +101,84 @@ public class Ingresaralumno extends JFrame {
 		});
 		lblNewLabel.setIcon(new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8_Multiply_32px.png")));
 
-		JLabel lblNewLabel_1 = new JLabel("INGRESAR");
+		JLabel lblNewLabel_1 = new JLabel("INGRESAR DOCENTE");
 		lblNewLabel_1.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 25));
-		lblNewLabel_1.setBounds(94, 13, 235, 56);
-		panelingresar.add(lblNewLabel_1);
+		lblNewLabel_1.setBounds(94, 13, 280, 56);
+		panel.add(lblNewLabel_1);
 
 		JLabel lblNewLabel_2 = new JLabel("");
 		lblNewLabel_2.setIcon(new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-insertar-64.png")));
 		lblNewLabel_2.setBounds(14, 13, 56, 56);
-		panelingresar.add(lblNewLabel_2);
+		panel.add(lblNewLabel_2);
 
-		JPanel correo = new JPanel();
-		correo.setBackground(SystemColor.window);
-		correo.setBounds(232, 788, 392, 37);
-		contentPane.add(correo);
-		correo.setLayout(null);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.window);
+		panel_1.setBounds(232, 788, 392, 37);
+		contentPane.add(panel_1);
+		panel_1.setLayout(null);
 
 		JLabel label_2 = new JLabel("");
-		label_2.setIcon(new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-nuevo-post-32.png")));
+		label_2.setIcon(new ImageIcon(Ingresardocente.class.getResource("/imagenes/icons8-plan-de-estudios-32.png")));
 		label_2.setBounds(0, 0, 56, 40);
-		correo.add(label_2);
+		panel_1.add(label_2);
 
-		email = new JTextField();
-		email.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		email.setColumns(10);
-		email.setBounds(70, 0, 322, 40);
-		correo.add(email);
-
-		JPanel direccion = new JPanel();
-		direccion.setBackground(SystemColor.window);
-		direccion.setBounds(232, 642, 392, 37);
-		contentPane.add(direccion);
-		direccion.setLayout(null);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBackground(SystemColor.window);
+		panel_2.setBounds(232, 642, 392, 37);
+		contentPane.add(panel_2);
+		panel_2.setLayout(null);
 
 		JLabel label_1 = new JLabel("");
-		label_1.setIcon(new ImageIcon(
-				Ingresaralumno.class.getResource("/imagenes/icons8-ubicaci\u00F3n-en-todo-el-mundo-32.png")));
+		label_1.setIcon(new ImageIcon(Ingresardocente.class.getResource("/imagenes/icons8-cumplea\u00F1os-32.png")));
 		label_1.setBounds(0, 0, 56, 40);
-		direccion.add(label_1);
+		panel_2.add(label_1);
 
-		direction = new JTextField();
-		direction.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		direction.setColumns(10);
-		direction.setBounds(68, 0, 322, 40);
-		direccion.add(direction);
-
-		JPanel nombre = new JPanel();
-		nombre.setBackground(SystemColor.textHighlightText);
-		nombre.setBounds(232, 510, 392, 37);
-		contentPane.add(nombre);
-		nombre.setLayout(null);
+		JPanel panel_3 = new JPanel();
+		panel_3.setBackground(SystemColor.textHighlightText);
+		panel_3.setBounds(232, 510, 392, 37);
+		contentPane.add(panel_3);
+		panel_3.setLayout(null);
 
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-usuario-32.png")));
 		label.setBounds(0, 0, 56, 40);
-		nombre.add(label);
+		panel_3.add(label);
 
-		name = new JTextField();
-		name.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		name.setColumns(10);
-		name.setBounds(68, 0, 322, 40);
-		nombre.add(name);
-
-		JPanel carrera = new JPanel();
-		carrera.setBackground(SystemColor.textHighlightText);
-		carrera.setBounds(232, 390, 392, 37);
-		contentPane.add(carrera);
-		carrera.setLayout(null);
+		JPanel panel_4 = new JPanel();
+		panel_4.setBackground(SystemColor.textHighlightText);
+		panel_4.setBounds(232, 390, 392, 37);
+		contentPane.add(panel_4);
+		panel_4.setLayout(null);
 
 		JLabel lblNewLabel_4 = new JLabel("");
-		lblNewLabel_4.setIcon(
-				new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-contrase\u00F1a-32 (1).png")));
+		lblNewLabel_4.setIcon(new ImageIcon(Ingresardocente.class.getResource("/imagenes/icons8-fecha-desde-32.png")));
 		lblNewLabel_4.setBounds(0, 0, 56, 40);
-		carrera.add(lblNewLabel_4);
+		panel_4.add(lblNewLabel_4);
 
-		codigoc = new JTextField();
-		codigoc.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		codigoc.setColumns(10);
-		codigoc.setBounds(70, 0, 322, 40);
-		carrera.add(codigoc);
-
-		JPanel Estudiante = new JPanel();
-		Estudiante.setBackground(SystemColor.window);
-		Estudiante.setBounds(232, 282, 392, 37);
-		contentPane.add(Estudiante);
-		Estudiante.setLayout(null);
+		JPanel panel_5 = new JPanel();
+		panel_5.setBackground(SystemColor.window);
+		panel_5.setBounds(232, 282, 392, 37);
+		contentPane.add(panel_5);
+		panel_5.setLayout(null);
 
 		JLabel lblNewLabel_5 = new JLabel("");
 		lblNewLabel_5.setIcon(
 				new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-contrase\u00F1a-32 (1).png")));
 		lblNewLabel_5.setBounds(0, 0, 56, 40);
-		Estudiante.add(lblNewLabel_5);
-
-		codigoe = new JTextField();
-		codigoe.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		codigoe.setBounds(70, 0, 322, 40);
-		Estudiante.add(codigoe);
-		codigoe.setColumns(10);
+		panel_5.add(lblNewLabel_5);
 
 		JLabel lblNewLabel_3 = new JLabel("");
 		lblNewLabel_3.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNewLabel_3.setIcon(
-				new ImageIcon(Ingresaralumno.class.getResource("/imagenes/icons8-estudiante-masculino-96 (2).png")));
+		lblNewLabel_3.setIcon(new ImageIcon(Ingresardocente.class.getResource("/imagenes/icons8-aula-96 (1).png")));
 		lblNewLabel_3.setBounds(12, 127, 626, 105);
 		contentPane.add(lblNewLabel_3);
 
-		JLabel lblNewLabel_6 = new JLabel("C\u00D3DIGO DEL ESTUDIANTE");
+		JLabel lblNewLabel_6 = new JLabel("C\u00D3DIGO DEL DOCENTE");
 		lblNewLabel_6.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		lblNewLabel_6.setBounds(22, 245, 349, 16);
 		contentPane.add(lblNewLabel_6);
 
-		JLabel lblIngreseElCdigo = new JLabel("C\u00D3DIGO DE CARRERA");
+		JLabel lblIngreseElCdigo = new JLabel("FECHA DE ENTRADA");
 		lblIngreseElCdigo.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		lblIngreseElCdigo.setBounds(22, 361, 349, 16);
 		contentPane.add(lblIngreseElCdigo);
@@ -230,12 +188,12 @@ public class Ingresaralumno extends JFrame {
 		lblNombreCompleto.setBounds(22, 481, 349, 16);
 		contentPane.add(lblNombreCompleto);
 
-		JLabel lblDireccin = new JLabel("DIRECCI\u00D3N");
+		JLabel lblDireccin = new JLabel("FECHA DE NACIMIENTO");
 		lblDireccin.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		lblDireccin.setBounds(22, 616, 349, 16);
 		contentPane.add(lblDireccin);
 
-		JLabel lblCorreoElectrnico = new JLabel("CORREO ELECTR\u00D3NICO");
+		JLabel lblCorreoElectrnico = new JLabel("CARRERA");
 		lblCorreoElectrnico.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 		lblCorreoElectrnico.setBounds(22, 753, 349, 16);
 		contentPane.add(lblCorreoElectrnico);
@@ -269,39 +227,18 @@ public class Ingresaralumno extends JFrame {
 		separator_5.setBounds(302, 825, 322, 16);
 		contentPane.add(separator_5);
 
-		JButton button = new JButton("GUARDAR");
-		button.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		button.setBounds(124, 892, 423, 45);
-		contentPane.add(button);
+		JButton btnNewButton = new JButton("GUARDAR");
+		btnNewButton.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		btnNewButton.setBounds(113, 879, 423, 45);
+		contentPane.add(btnNewButton);
+
+		JLabel lblNewLabel_7 = new JLabel("\u00A1TODOS LOS CAMPOS SON REQUERIDOS!");
+		lblNewLabel_7.setToolTipText("");
+		lblNewLabel_7.setForeground(UIManager.getColor("ToolBar.dockingForeground"));
+		lblNewLabel_7.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		lblNewLabel_7.setBounds(147, 850, 362, 16);
+		contentPane.add(lblNewLabel_7);
 		setResizable(false);
 		setUndecorated(true);
-
-		/*****
-		 * Conexion mariadb para actualizar producto
-		 */
-
-		try {
-
-			Conexion conexion = new Conexion("root", "", "neptuno");
-
-			Integer.parseInt(codigoe.getText());
-			Integer.parseInt(codigoc.getText());
-			direction.getText();
-			email.getText();
-
-			String query = "INSERT INTO Estudiante (" + "cod_carrera," + "nombre =?," + "dirección =?,"
-					+ "Correoelectrònico =?)";
-
-			Statement st = conexion.createStatement();
-			st.executeUpdate(query);
-
-			conexion.modificacion();
-			conexion.close();
-
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
 	}
 }

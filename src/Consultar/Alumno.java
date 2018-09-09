@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,6 +25,7 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Conexion.Conexion;
+import Ingresar.Ingresaralumno;
 
 public class Alumno extends JFrame {
 
@@ -51,8 +53,15 @@ public class Alumno extends JFrame {
 	 * Create the frame.
 	 */
 	public Alumno() {
+		/*
+		 * Se importo un jar llamado rsutilities Con este se puede configurar la ventana
+		 * 
+		 */
+		rsutilities.RSUtilities.setCentrarVentana(this);
+		rsutilities.RSUtilities.setMoverVentana(this);
+		rsutilities.RSUtilities.setOpaqueVentana(this, false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 700);
+		setBounds(400, 100, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -93,15 +102,15 @@ public class Alumno extends JFrame {
 
 						// Se crea un array de objetos
 						Object[] fila = new Object[5]; // Hay tres columnas en
-														// la tabla
+						// la tabla
 
 						// Se rellena cada posición del array con una de las
 						// columnas de la tabla en base de datos.
 						for (int i = 0; i < 5; i++)
 							fila[i] = rs.getObject(i + 1); // El primer indice
-															// en rs es el 1, no
-															// el cero, por eso
-															// se suma 1.
+						// en rs es el 1, no
+						// el cero, por eso
+						// se suma 1.
 
 						// Se añade al modelo la fila completa.
 						modelo.addRow(fila);
@@ -121,17 +130,17 @@ public class Alumno extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(20, 129, 1100, 499);
+		panel.setBounds(20, 182, 1100, 505);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
-		scrollPane.setBounds(12, 13, 998, 473);
+		scrollPane.setBounds(12, 13, 998, 479);
 		panel.add(scrollPane);
 		tabla = new JTable(modelo);
 		scrollPane.setViewportView(tabla);
-		btnNewButton.setBounds(963, 641, 162, 46);
+		btnNewButton.setBounds(1002, 109, 162, 46);
 		contentPane.add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
@@ -185,8 +194,38 @@ public class Alumno extends JFrame {
 
 		JLabel lblNewLabel_1 = new JLabel("");
 		lblNewLabel_1.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Search_32px.png")));
-		lblNewLabel_1.setBounds(900, 641, 56, 46);
+		lblNewLabel_1.setBounds(938, 109, 56, 46);
 		contentPane.add(lblNewLabel_1);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(1029, 655, 1, 1);
+		contentPane.add(layeredPane);
+
+		JButton btnIngresar = new JButton("INGRESAR");
+		btnIngresar.addActionListener(new ActionListener() {
+			/*
+			 * boton para añadir un nuevo registro de alumno
+			 * 
+			 * @see
+			 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
+			 */
+			public void actionPerformed(ActionEvent arg0) {
+				/**
+				 * LLama a ingresar alumno
+				 */
+				Ingresaralumno a = new Ingresaralumno();
+				a.setVisible(true);
+
+			}
+		});
+		btnIngresar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
+		btnIngresar.setBounds(73, 109, 162, 46);
+		contentPane.add(btnIngresar);
+
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8-m\u00E1s-32.png")));
+		lblNewLabel_4.setBounds(20, 109, 41, 46);
+		contentPane.add(lblNewLabel_4);
 		setResizable(false);
 		setUndecorated(true);
 	}
