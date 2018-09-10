@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 import Conexion.Conexion;
 import Ingresar.Ingresaralumno;
 
-public class Alumno extends JFrame {
+public class Aula extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -40,7 +40,7 @@ public class Alumno extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Alumno frame = new Alumno();
+					Aula frame = new Aula();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -52,7 +52,7 @@ public class Alumno extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Alumno() {
+	public Aula() {
 		/*
 		 * Se importo un jar llamado rsutilities Con este se puede configurar la ventana
 		 * 
@@ -69,9 +69,6 @@ public class Alumno extends JFrame {
 
 		final DefaultTableModel modelo = new DefaultTableModel();
 
-		/***
-		 * Boton consultar
-		 */
 		JButton btnNewButton = new JButton("CONSULTAR");
 		btnNewButton.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 
@@ -85,35 +82,30 @@ public class Alumno extends JFrame {
 				// notifies the JTable that the model has changed
 				// Creamos las columnas.
 
-				modelo.addColumn("CÓDIGO DE ESTUDIANTE");
-				modelo.addColumn("CÓDIGO DE CARRERA");
+				modelo.addColumn("NOMBRE DEL AULA");
+				modelo.addColumn("PISO");
 				modelo.addColumn("NOMBRE");
 				modelo.addColumn("DIRECCIÓN");
-				modelo.addColumn("CORREO ELECTRÓNICO");
-				/**
-				 * Recupera datos de mariadb
-				 */
+
 				ResultSet rs;
 
 				try {
 
 					Conexion conexion = new Conexion("root", "", "universidad");
-					conexion.consulta(
-							"select cod_Estudiante, cod_Carrera, Nombre, Dirección,Correoelectrónico from estudiante ");
-					/**
-					 * Recupera el resultado
-					 */
+					conexion.consulta("SELECT a.Nombre, a.Piso,c.cod_Docente\r\n"
+							+ "  FROM aula a INNER JOIN clase c ON a.cod_Aula = c.cod_Aula INNER JOIN clase c1 ON a.cod_Aula = c1.cod_Aula");
+
 					rs = conexion.resultado();
 
 					while (rs.next()) {
 
 						// Se crea un array de objetos
-						Object[] fila = new Object[5]; // Hay tres columnas en
+						Object[] fila = new Object[4]; // Hay tres columnas en
 						// la tabla
 
 						// Se rellena cada posición del array con una de las
 						// columnas de la tabla en base de datos.
-						for (int i = 0; i < 5; i++)
+						for (int i = 0; i < 4; i++)
 							fila[i] = rs.getObject(i + 1); // El primer indice
 						// en rs es el 1, no
 						// el cero, por eso
@@ -123,11 +115,8 @@ public class Alumno extends JFrame {
 						modelo.addRow(fila);
 
 					}
+
 					tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-					/**
-					 * 
-					 * CIERRA CONEXION!
-					 */
 					rs.close();
 
 				} catch (java.sql.SQLException e) {
@@ -163,6 +152,7 @@ public class Alumno extends JFrame {
 
 		JLabel lblNewLabel = new JLabel("");
 		lblNewLabel.addMouseListener(new MouseAdapter() {
+
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				int i = JOptionPane.YES_NO_OPTION;
@@ -189,7 +179,7 @@ public class Alumno extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Multiply_32px.png")));
 		panel_1.add(lblNewLabel);
 
-		JLabel lblNewLabel_2 = new JLabel("CONSULTAR ALUMNOS");
+		JLabel lblNewLabel_2 = new JLabel("CONSULTAR AULA");
 		lblNewLabel_2.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 25));
 		lblNewLabel_2.setBounds(126, 13, 412, 66);
 		panel_1.add(lblNewLabel_2);
@@ -199,8 +189,8 @@ public class Alumno extends JFrame {
 		panel_1.add(separator);
 
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8-estudiante-masculino-64.png")));
-		lblNewLabel_3.setBounds(34, 13, 96, 66);
+		lblNewLabel_3.setIcon(new ImageIcon(Aula.class.getResource("/imagenes/icons8-clase-96.png")));
+		lblNewLabel_3.setBounds(22, 13, 96, 66);
 		panel_1.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_1 = new JLabel("");

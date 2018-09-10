@@ -1,9 +1,9 @@
 package Conexion;
 
 public class Sentencia {
-/**
- * 
- */
+	/**
+	 * 
+	 */
 	public static String REGISTRAR = "INSERT INTO estudiante (" + "cod_carrera," + "nombre =?," + "dirección =?,"
 			+ "Correoelectrònico =?)" + "VALUES";
 
@@ -15,10 +15,12 @@ public class Sentencia {
 	private String nombre;
 	private String Dirección;
 	private String correolectrónico;
-/**
- * Setters y getters 
- * @return
- */
+
+	/**
+	 * Setters y getters
+	 * 
+	 * @return
+	 */
 	public int getCod_carrera() {
 		return cod_carrera;
 	}

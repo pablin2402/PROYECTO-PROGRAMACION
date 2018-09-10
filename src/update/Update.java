@@ -7,6 +7,7 @@ import Conexion.Conexion;
 
 public class Update {
 	public static void main(String[] args) {
+
 		try {
 			Scanner scanner = new Scanner(System.in);
 			Conexion conexion = new Conexion("root", "", "universidad");
@@ -17,6 +18,8 @@ public class Update {
 			String productoCondiciòn = InputTypes.ReadString("Ingrese la condicion", scanner);
 			/***
 			 * Parametros son secuenciales comienzan en 1
+			 * 
+			 * 
 			 * 
 			 */
 			conexion.getSentencia().setString(1, producto);
