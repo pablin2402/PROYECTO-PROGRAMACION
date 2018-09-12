@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Estudiante.entity.NoExisteEstudiante;
 
 public class Pantalla {
+
 	public static void main(String[] args) throws NoExisteEstudiante {
 		Scanner scanner = new Scanner(System.in);
 

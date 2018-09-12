@@ -7,8 +7,11 @@ import Conexion.Conexion;
 import VIEW.InputTypes;
 
 public class Actualizar {
-	public static void main(String[] args) {
 
+	public static void main(String[] args) {
+	}
+
+	public void upload() {
 		try {
 			Scanner scanner = new Scanner(System.in);
 			Conexion conexion = new Conexion("root", "", "universidad_oficial");

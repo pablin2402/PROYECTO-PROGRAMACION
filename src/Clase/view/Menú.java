@@ -1,4 +1,4 @@
-package Estudiante.view;
+package Clase.view;
 
 import java.sql.SQLException;
 import java.util.Scanner;
@@ -6,19 +6,21 @@ import java.util.Scanner;
 import Estudiante.consultas.Consulta;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
+import Estudiante.view.EstudiantesIO;
 import VIEW.InputTypes;
 
-public class Menu {
+public class Menú {
+
 	private static int encabezado(Scanner scanner) {
 		int opcion;
 
 		while (true) {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Consultar Alumno");
-			System.out.println("2. Añadir Alumno ");
-			System.out.println("3. Eliminar Alumno ");
-			System.out.println("4. Modificar Alumno ");
+			System.out.println("1. Ingresar clase");
+			System.out.println("2. Consultar clase ");
+			System.out.println("3. Eliminar clase ");
+			System.out.println("4. Modificar clase ");
 
 			System.out.println("0. Salir");
 			System.out.println();
@@ -67,7 +69,7 @@ public class Menu {
 		while (true) {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Modificar nombre");
+			System.out.println("1. Modificar ");
 			System.out.println("2. Modificar descripción ");
 			System.out.println("0. Salir");
 			System.out.println();
@@ -89,7 +91,6 @@ public class Menu {
 		boolean salir = false;
 
 		while (!salir) {
-
 			switch (encabezadoModificar(scanner)) {
 			case 0:
 				salir = true;

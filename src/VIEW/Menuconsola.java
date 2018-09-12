@@ -16,13 +16,17 @@ public class Menuconsola {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
 			System.out.println("1. Alumno");
-			System.out.println("2. Producto ");
+			System.out.println("2. Materia ");
+			System.out.println("3. Docente");
+			System.out.println("4. Clase");
+			System.out.println("5. Aula");
+			System.out.println("6. Carrera");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 2) {
+			if (opcion >= 0 && opcion <= 6) {
 				return opcion;
 			}
 		}
@@ -38,8 +42,7 @@ public class Menuconsola {
 
 	public static void menú(Scanner scanner) throws ClassNotFoundException, SQLException, NoExisteEstudiante {
 		boolean salir = false;
-
-		Conexion conexión = new Conexion("root", "", "Tienda");
+		Conexion conexión = new Conexion("root", "", "universidad_oficial");
 		EstudiantesIO categoríasIO = new EstudiantesIO(conexión, scanner);
 		Consulta consola = new Consulta(conexión, scanner);
 
@@ -55,7 +58,10 @@ public class Menuconsola {
 					e.printStackTrace();
 				}
 				break;
-
+			case 2:
+				Materia.view.Menú.menú(scanner, categoríasIO, consola);
+			case 3:
+				Docente.view.Menu.menú(scanner, categoríasIO, consola);
 			}
 		}
 		conexión.close();

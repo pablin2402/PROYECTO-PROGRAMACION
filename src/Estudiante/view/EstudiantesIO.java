@@ -20,14 +20,13 @@ public class EstudiantesIO {
 	 * @param productos *
 	 ****************************/
 
-	public EstudiantesIO(Conexion conexion, Scanner scanner) {
-		this.conexion = conexion;
-		this.scanner = scanner;
-	}
-
 	/****************************
 	 * Agregar estudiantes *
 	 ****************************/
+
+	public EstudiantesIO(Conexion conexión, Scanner scanner2) {
+		// TODO Auto-generated constructor stub
+	}
 
 	/****************************
 	 * Modificar alumno
