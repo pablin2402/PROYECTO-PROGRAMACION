@@ -1,5 +1,9 @@
 package VIEW;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Scanner;
 
 public class InputTypes {
@@ -51,4 +55,18 @@ public class InputTypes {
 
 	}
 
+	public static Date leerFecha(Scanner leer, String msg) {
+		Date fecha;
+		DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+
+		while (true) {
+			System.out.print(msg);
+			try {
+				fecha = formato.parse(leer.nextLine());
+				return fecha;
+			} catch (ParseException e) {
+				System.out.println("Error en el formato de fecha");
+			}
+		}
+	}
 }
