@@ -6,6 +6,7 @@ import java.util.Scanner;
 
 import Conexion.Conexion;
 import Estudiante.entity.Estudiante;
+import Estudiante.entity.NoExisteEstudiante;
 import VIEW.InputTypes;
 
 public class EstudiantesIO {
@@ -69,7 +70,7 @@ public class EstudiantesIO {
 		System.out.println(estudiante);
 		Menu.menúModificar(scanner, estudiante);
 
-		sql = "update categoría set nombre = ?, descripción = ? where código = ?";
+		sql = "update estudiante set nombre = ?, descripción = ? where código = ?";
 
 		conexion.consulta(sql);
 		conexion.getSentencia().setString(1, estudiante.getNombre());

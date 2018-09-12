@@ -1,22 +1,20 @@
-package Docente;
+package Docente.entity;
 
 import java.util.Date;
 
 public class Docente {
 
 	private int cod_Docente;
-	private int cod_Empleado;
 	private Date fecha_entrada;
 	private String nombre;
 	private Date fecha_nacimiento;
 	private String Carrera;
 	private int CI;
 
-	public Docente(int cod_Docente, int cod_Empleado, Date fecha_entrada, String nombre, Date fecha_nacimiento,
-			String carrera, int cI) {
+	public Docente(int cod_Docente, Date fecha_entrada, String nombre, Date fecha_nacimiento, String carrera, int cI) {
 		super();
 		this.cod_Docente = cod_Docente;
-		this.cod_Empleado = cod_Empleado;
+
 		this.fecha_entrada = fecha_entrada;
 		this.nombre = nombre;
 		this.fecha_nacimiento = fecha_nacimiento;
@@ -30,14 +28,6 @@ public class Docente {
 
 	public void setCod_Docente(int cod_Docente) {
 		this.cod_Docente = cod_Docente;
-	}
-
-	public int getCod_Empleado() {
-		return cod_Empleado;
-	}
-
-	public void setCod_Empleado(int cod_Empleado) {
-		this.cod_Empleado = cod_Empleado;
 	}
 
 	public Date getFecha_entrada() {
@@ -82,9 +72,8 @@ public class Docente {
 
 	@Override
 	public String toString() {
-		return "Docente [cod_Docente=" + cod_Docente + ", cod_Empleado=" + cod_Empleado + ", fecha_entrada="
-				+ fecha_entrada + ", nombre=" + nombre + ", fecha_nacimiento=" + fecha_nacimiento + ", Carrera="
-				+ Carrera + ", CI=" + CI + "]";
+		return "Docente [cod_Docente=" + cod_Docente + ", fecha_entrada=" + fecha_entrada + ", nombre=" + nombre
+				+ ", fecha_nacimiento=" + fecha_nacimiento + ", Carrera=" + Carrera + ", CI=" + CI + "]";
 	}
 
 }

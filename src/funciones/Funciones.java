@@ -6,7 +6,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import Conexion.Conexion;
-import Conexion.Sentencia;
 
 public class Funciones {
 	private Connection connection = null;

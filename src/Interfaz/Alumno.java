@@ -1,4 +1,4 @@
-package Consultar;
+package Interfaz;
 
 import java.awt.Color;
 import java.awt.EventQueue;
@@ -14,6 +14,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -24,9 +25,9 @@ import javax.swing.border.MatteBorder;
 import javax.swing.table.DefaultTableModel;
 
 import Conexion.Conexion;
-import Ingresar.Ingresardocente;
+import Ingresar.Ingresaralumno;
 
-public class Profesor extends JFrame {
+public class Alumno extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -39,7 +40,7 @@ public class Profesor extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Profesor frame = new Profesor();
+					Alumno frame = new Alumno();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +52,7 @@ public class Profesor extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Profesor() {
+	public Alumno() {
 		/*
 		 * Se importo un jar llamado rsutilities Con este se puede configurar la ventana
 		 * 
@@ -59,9 +60,8 @@ public class Profesor extends JFrame {
 		rsutilities.RSUtilities.setCentrarVentana(this);
 		rsutilities.RSUtilities.setMoverVentana(this);
 		rsutilities.RSUtilities.setOpaqueVentana(this, false);
-
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1200, 700);
+		setBounds(400, 100, 1200, 700);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -69,6 +69,9 @@ public class Profesor extends JFrame {
 
 		final DefaultTableModel modelo = new DefaultTableModel();
 
+		/***
+		 * Boton consultar
+		 */
 		JButton btnNewButton = new JButton("CONSULTAR");
 		btnNewButton.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
 
@@ -82,41 +85,49 @@ public class Profesor extends JFrame {
 				// notifies the JTable that the model has changed
 				// Creamos las columnas.
 
-				modelo.addColumn("CÓDIGO DEL DOCENTE");
-				modelo.addColumn("FECHA DE ENTRADA");
+				modelo.addColumn("CÓDIGO DE ESTUDIANTE");
+				modelo.addColumn("CÓDIGO DE CARRERA");
 				modelo.addColumn("NOMBRE");
-				modelo.addColumn("FECHA DE NACIMIENTO");
-				modelo.addColumn("CARRERA");
-
+				modelo.addColumn("DIRECCIÓN");
+				modelo.addColumn("CORREO ELECTRÓNICO");
+				/**
+				 * Recupera datos de mariadb
+				 */
 				ResultSet rs;
 
 				try {
 
 					Conexion conexion = new Conexion("root", "", "universidad");
 					conexion.consulta(
-							"select cod_Docente, fecha_entrada, Nombre, fecha_Nacimiento, Carrera from DOCENTE ");
-
+							"select cod_Estudiante, cod_Carrera, Nombre, Dirección,Correoelectrónico from estudiante ");
+					/**
+					 * Recupera el resultado
+					 */
 					rs = conexion.resultado();
 
 					while (rs.next()) {
 
 						// Se crea un array de objetos
-						Object[] fila = new Object[5]; // Hay SEIS columnas en
-														// la tabla
+						Object[] fila = new Object[5]; // Hay tres columnas en
+						// la tabla
 
 						// Se rellena cada posición del array con una de las
 						// columnas de la tabla en base de datos.
 						for (int i = 0; i < 5; i++)
 							fila[i] = rs.getObject(i + 1); // El primer indice
-															// en rs es el 1, no
-															// el cero, por eso
-															// se suma 1.
+						// en rs es el 1, no
+						// el cero, por eso
+						// se suma 1.
 
 						// Se añade al modelo la fila completa.
 						modelo.addRow(fila);
 
 					}
 					tabla.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+					/**
+					 * 
+					 * CIERRA CONEXION!
+					 */
 					rs.close();
 
 				} catch (java.sql.SQLException e) {
@@ -130,17 +141,17 @@ public class Profesor extends JFrame {
 
 		JPanel panel = new JPanel();
 		panel.setBackground(Color.LIGHT_GRAY);
-		panel.setBounds(20, 183, 1100, 504);
+		panel.setBounds(20, 182, 1100, 505);
 		contentPane.add(panel);
 		panel.setLayout(null);
 
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
-		scrollPane.setBounds(12, 13, 998, 478);
+		scrollPane.setBounds(12, 13, 998, 479);
 		panel.add(scrollPane);
 		tabla = new JTable(modelo);
 		scrollPane.setViewportView(tabla);
-		btnNewButton.setBounds(976, 124, 162, 46);
+		btnNewButton.setBounds(1002, 109, 162, 46);
 		contentPane.add(btnNewButton);
 
 		JPanel panel_1 = new JPanel();
@@ -178,7 +189,7 @@ public class Profesor extends JFrame {
 		lblNewLabel.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Multiply_32px.png")));
 		panel_1.add(lblNewLabel);
 
-		JLabel lblNewLabel_2 = new JLabel("CONSULTAR DOCENTES");
+		JLabel lblNewLabel_2 = new JLabel("CONSULTAR ALUMNOS");
 		lblNewLabel_2.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 25));
 		lblNewLabel_2.setBounds(126, 13, 412, 66);
 		panel_1.add(lblNewLabel_2);
@@ -188,36 +199,45 @@ public class Profesor extends JFrame {
 		panel_1.add(separator);
 
 		JLabel lblNewLabel_3 = new JLabel("");
-		lblNewLabel_3.setIcon(new ImageIcon(Profesor.class.getResource("/imagenes/icons8-aula-64.png")));
+		lblNewLabel_3.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8-estudiante-masculino-64.png")));
 		lblNewLabel_3.setBounds(34, 13, 96, 66);
 		panel_1.add(lblNewLabel_3);
 
 		JLabel lblNewLabel_1 = new JLabel("");
-		lblNewLabel_1.setBounds(908, 124, 56, 46);
-		contentPane.add(lblNewLabel_1);
 		lblNewLabel_1.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8_Search_32px.png")));
+		lblNewLabel_1.setBounds(938, 109, 56, 46);
+		contentPane.add(lblNewLabel_1);
+
+		JLayeredPane layeredPane = new JLayeredPane();
+		layeredPane.setBounds(1029, 655, 1, 1);
+		contentPane.add(layeredPane);
 
 		JButton btnIngresar = new JButton("INGRESAR");
 		btnIngresar.addActionListener(new ActionListener() {
-			/***
-			 * Cuando se presiona el boton llama a Ingresar maestro
+			/*
+			 * boton para añadir un nuevo registro de alumno
+			 * 
+			 * @see
+			 * java.awt.event.ActionListener#actionPerformed(java.awt.event.ActionEvent)
 			 */
-			public void actionPerformed(ActionEvent e) {
-				Ingresardocente i = new Ingresardocente();
-				i.setVisible(true);
+			public void actionPerformed(ActionEvent arg0) {
+				/**
+				 * LLama a ingresar alumno
+				 */
+				Ingresaralumno a = new Ingresaralumno();
+				a.setVisible(true);
 
 			}
 		});
 		btnIngresar.setFont(new Font("Leelawadee UI Semilight", Font.BOLD, 18));
-		btnIngresar.setBounds(62, 124, 162, 46);
+		btnIngresar.setBounds(73, 109, 162, 46);
 		contentPane.add(btnIngresar);
 
-		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(Profesor.class.getResource("/imagenes/icons8-m\u00E1s-32.png")));
-		label.setBounds(22, 124, 56, 46);
-		contentPane.add(label);
+		JLabel lblNewLabel_4 = new JLabel("");
+		lblNewLabel_4.setIcon(new ImageIcon(Alumno.class.getResource("/imagenes/icons8-m\u00E1s-32.png")));
+		lblNewLabel_4.setBounds(20, 109, 41, 46);
+		contentPane.add(lblNewLabel_4);
 		setResizable(false);
 		setUndecorated(true);
 	}
-
 }

@@ -1,4 +1,4 @@
-package Student;
+package Interfaz;
 
 import java.awt.Color;
 import java.awt.EventQueue;

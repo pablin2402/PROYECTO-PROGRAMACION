@@ -7,6 +7,7 @@ import VIEW.InputTypes;
 
 public class EstudianteIO {
 	public static Estudiante ingresar(Scanner scanner) {
+
 		int cod_Estudiante = InputTypes.readInt("Ingrese el código del estudiante", scanner);
 		int cod_carrera = InputTypes.readInt("Ingrese el nombre de la carrera: ", scanner);
 		String nombre = InputTypes.ReadString("Ingrese su nombre completo porfavor ", scanner);
