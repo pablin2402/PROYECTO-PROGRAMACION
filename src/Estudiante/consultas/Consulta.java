@@ -2,25 +2,22 @@ package Estudiante.consultas;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Scanner;
 
 import Conexion.Conexion;
 import Estudiante.entity.Estudiante;
 
 public class Consulta {
 
-	public Consulta(Conexion conexión, Scanner scanner) {
-		// TODO Auto-generated constructor stub
-	}
-
 	public void list() throws SQLException {
 
-		Conexion conexion = null;
+		Conexion conexion;
+		conexion.consulta(sql);
+
 		Estudiante categoría;
 		String sql = " SELECT E.cod_Estudiante,C.Nombre,e.Nombre,e.Dirección,e.Correo_electrónico\\r\\n\"\r\n"
 				+ "					+ \"  FROM estudiante e INNER JOIN carrera c ON e.cod_Carrera = c.cod_Carreras\\r\\n\"\r\n"
 				+ "					+ \"  GROUP BY e.cod_Estudiante ASC \\r\\n\" + \"";
-		conexion.consulta(sql);
+
 		ResultSet resultSet = null;
 
 		while (resultSet.next()) {

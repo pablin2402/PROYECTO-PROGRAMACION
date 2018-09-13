@@ -3,11 +3,12 @@ package VIEW;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Aula.entity.NoExisteAula;
 import Estudiante.entity.NoExisteEstudiante;
 
 public class Pantalla {
 
-	public static void main(String[] args) throws NoExisteEstudiante {
+	public static void main(String[] args) throws NoExisteEstudiante, NoExisteAula {
 		Scanner scanner = new Scanner(System.in);
 
 		try {

@@ -3,7 +3,11 @@ package VIEW;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Aula.entity.NoExisteAula;
+import Aula.view.AulasIO;
+import Carrera.view.CarrerasIO;
 import Conexion.Conexion;
+import Docente.consultas.Actualizar;
 import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import Estudiante.view.EstudiantesIO;
@@ -37,20 +41,26 @@ public class Menuconsola {
 	 * 
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
-	 * @throws NoExisteEstudiante *
+	 * @throws NoExisteEstudiante
+	 * @throws NoExisteAula *
 	 ****************************/
 
-	public static void menú(Scanner scanner) throws ClassNotFoundException, SQLException, NoExisteEstudiante {
+	public static void menú(Scanner scanner)
+			throws ClassNotFoundException, SQLException, NoExisteEstudiante, NoExisteAula {
 		boolean salir = false;
 		Conexion conexión = new Conexion("root", "", "universidad_oficial");
 		EstudiantesIO categoríasIO = new EstudiantesIO(conexión, scanner);
-		Consulta consola = new Consulta(conexión, scanner);
+		Consulta consola = new Consulta();
+		Actualizar actualizar = new Actualizar();
+		AulasIO aulasIO = new AulasIO();
+		CarrerasIO carrerasView = new CarrerasIO();
 
 		while (!salir) {
 			switch (encabezado(scanner)) {
 			case 0:
 				salir = true;
 				break;
+
 			case 1:
 				try {
 					Estudiante.view.Menu.menú(scanner, categoríasIO, consola);
@@ -61,7 +71,13 @@ public class Menuconsola {
 			case 2:
 				Materia.view.Menú.menú(scanner, categoríasIO, consola);
 			case 3:
-				Docente.view.Menu.menú(scanner, categoríasIO, consola);
+				Docente.view.Menu.menú(scanner, categoríasIO, actualizar);
+			case 4:
+				Clase.view.Menú.menú(scanner, categoríasIO, consola);
+			case 5:
+				Aula.view.Menú.menú(scanner, aulasIO);
+			case 6:
+				Carrera.view.Menú.menú(scanner, carrerasView);
 			}
 		}
 		conexión.close();
