@@ -37,7 +37,8 @@ public class Menú {
 	 * @throws ClassNotFoundException *
 	 ****************************/
 
-	public static void menú(Scanner scanner, CarrerasIO carrerasView) throws SQLException, NoExisteEstudiante {
+	public static void menú(Scanner scanner, CarrerasIO carrerasView)
+			throws SQLException, NoExisteEstudiante, ClassNotFoundException {
 		boolean salir = false;
 
 		while (!salir) {
@@ -50,6 +51,7 @@ public class Menú {
 
 				break;
 			case 2:
+				carrerasView.list();
 				break;
 			}
 		}

@@ -6,7 +6,6 @@ import java.util.Scanner;
 import Estudiante.consultas.Consulta;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
-import Estudiante.view.EstudiantesIO;
 import VIEW.InputTypes;
 
 public class Menú {
@@ -41,8 +40,8 @@ public class Menú {
 	 * @throws ClassNotFoundException *
 	 ****************************/
 
-	public static void menú(Scanner scanner, EstudiantesIO estudiantesView, Consulta consulta)
-			throws SQLException, NoExisteEstudiante {
+	public static void menú(Scanner scanner, MateriasIO materiasView, Consulta consulta)
+			throws SQLException, NoExisteEstudiante, ClassNotFoundException {
 		boolean salir = false;
 
 		while (!salir) {
@@ -52,7 +51,7 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				consulta.list();
+				materiasView.list();
 				break;
 
 			}

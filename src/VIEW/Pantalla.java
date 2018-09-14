@@ -8,13 +8,11 @@ import Estudiante.entity.NoExisteEstudiante;
 
 public class Pantalla {
 
-	public static void main(String[] args) throws NoExisteEstudiante, NoExisteAula {
+	public static void main(String[] args) throws NoExisteEstudiante, NoExisteAula, ClassNotFoundException {
 		Scanner scanner = new Scanner(System.in);
 
 		try {
 			VIEW.Menuconsola.menú(scanner);
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

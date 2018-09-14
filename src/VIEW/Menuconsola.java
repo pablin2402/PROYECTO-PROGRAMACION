@@ -6,11 +6,14 @@ import java.util.Scanner;
 import Aula.entity.NoExisteAula;
 import Aula.view.AulasIO;
 import Carrera.view.CarrerasIO;
+import Clase.view.ClasesIO;
 import Conexion.Conexion;
 import Docente.consultas.Actualizar;
+import Docente.view.DocentesIO;
 import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import Estudiante.view.EstudiantesIO;
+import Materia.view.MateriasIO;
 
 public class Menuconsola {
 	public static int encabezado(Scanner scanner) {
@@ -46,15 +49,18 @@ public class Menuconsola {
 	 ****************************/
 
 	public static void menú(Scanner scanner)
-			throws ClassNotFoundException, SQLException, NoExisteEstudiante, NoExisteAula {
+			throws SQLException, NoExisteEstudiante, NoExisteAula, ClassNotFoundException {
 		boolean salir = false;
-		Conexion conexión = new Conexion("root", "", "universidad_oficial");
-		EstudiantesIO categoríasIO = new EstudiantesIO(conexión, scanner);
+		Conexion conexion = new Conexion("root", "", "universidad_oficial");
+
+		EstudiantesIO estudiantesIO = new EstudiantesIO(conexion, scanner);
 		Consulta consola = new Consulta();
 		Actualizar actualizar = new Actualizar();
 		AulasIO aulasIO = new AulasIO();
-		CarrerasIO carrerasView = new CarrerasIO();
-
+		CarrerasIO carrerasView = new CarrerasIO(conexion, scanner);
+		MateriasIO materiasIO = new MateriasIO(conexion, scanner);
+		DocentesIO docentesIO = new DocentesIO(conexion, scanner);
+		ClasesIO clasesIO = new ClasesIO(conexion, scanner);
 		while (!salir) {
 			switch (encabezado(scanner)) {
 			case 0:
@@ -62,24 +68,23 @@ public class Menuconsola {
 				break;
 
 			case 1:
-				try {
-					Estudiante.view.Menu.menú(scanner, categoríasIO, consola);
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+
+				Estudiante.view.Menu.menú(scanner, estudiantesIO, consola);
+
 				break;
 			case 2:
-				Materia.view.Menú.menú(scanner, categoríasIO, consola);
+				Materia.view.Menú.menú(scanner, materiasIO, consola);
 			case 3:
-				Docente.view.Menu.menú(scanner, categoríasIO, actualizar);
+				Docente.view.Menu.menú(scanner, docentesIO, actualizar);
 			case 4:
-				Clase.view.Menú.menú(scanner, categoríasIO, consola);
+				Clase.view.Menú.menú(scanner, clasesIO, consola);
 			case 5:
 				Aula.view.Menú.menú(scanner, aulasIO);
 			case 6:
 				Carrera.view.Menú.menú(scanner, carrerasView);
 			}
+			conexion.close();
 		}
-		conexión.close();
+
 	}
 }

@@ -6,6 +6,7 @@ import Estudiante.entity.Estudiante;
 import VIEW.InputTypes;
 
 public class EstudianteIO {
+
 	public static Estudiante ingresar(Scanner scanner) {
 
 		int cod_Estudiante = InputTypes.readInt("Ingrese el código del estudiante", scanner);

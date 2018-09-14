@@ -5,77 +5,36 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Conexion.Conexion;
-import Estudiante.entity.Estudiante;
-import Estudiante.entity.NoExisteEstudiante;
-import VIEW.InputTypes;
 
 public class EstudiantesIO {
 
 	private Conexion conexion;
 	private Scanner scanner;
 
-	/****************************
-	 * Constructor
-	 * 
-	 * @param productos *
-	 ****************************/
-
-	/****************************
-	 * Agregar estudiantes *
-	 ****************************/
-
-	public EstudiantesIO(Conexion conexión, Scanner scanner2) {
-		// TODO Auto-generated constructor stub
+	public EstudiantesIO(Conexion conexion, Scanner scanner) {
+		this.conexion = conexion;
+		this.scanner = scanner;
 	}
 
-	/****************************
-	 * Modificar alumno
-	 * 
-	 * @throws SQLException
-	 * @throws NoExisteEstudiante *
-	 ****************************/
-	public void update() throws SQLException, NoExisteEstudiante {
+	public void list() throws SQLException, ClassNotFoundException {
 
+		conexion.consulta(
+				" SELECT e.cod_Carrera,e.cod_Estudiante,e.Nombre,e.Dirección,e.Correo_electrónico FROM estudiante e");
 		ResultSet resultSet;
 
-		Estudiante estudiante;
-
-		int cod_Estudiante;
-		int cod_Carrera;
-		String nombre;
-		String direccion;
-		String correoelectronico;
-
-		int cod_Estudiantes = InputTypes.readInt("Código de categoría: ", scanner);
-
-		String sql = "select * from estudiante where código = ?";
-		conexion.consulta(sql);
-		conexion.getSentencia().setInt(1, cod_Estudiantes);
-
 		resultSet = conexion.resultado();
+		while (resultSet.next()) {
 
-		if (resultSet.next()) {
-			cod_Estudiante = resultSet.getInt("cod_Estudiante");
-			cod_Carrera = resultSet.getInt("cod_Carrera");
-			nombre = resultSet.getString("Nombre");
-			direccion = resultSet.getString("Ingrese la direcciòn");
-			correoelectronico = resultSet.getString("correo");
-
-			estudiante = new Estudiante(cod_Estudiante, cod_Carrera, nombre, direccion, correoelectronico);
-		} else {
-			throw new NoExisteEstudiante();
+			System.out.println("DATOS DEL ESTUDIANTE");
+			System.out.println("");
+			System.out.println("Código de la carrera: " + resultSet.getInt("e.cod_Carrera"));
+			System.out.println("Código Estudiante: " + resultSet.getInt("e.cod_Estudiante"));
+			System.out.println("Nombre: " + resultSet.getString("e.Nombre"));
+			System.out.println("Dirección: " + resultSet.getString("e.Dirección"));
+			System.out.println("Correo Electrónico: " + resultSet.getString("e.Correo_electrónico"));
+			System.out.println("---------------------------------------------------------");
 		}
 
-		System.out.println(estudiante);
-		Menu.menúModificar(scanner, estudiante);
-
-		sql = "update estudiante set nombre = ?, descripción = ? where código = ?";
-
-		conexion.consulta(sql);
-		conexion.getSentencia().setString(1, estudiante.getNombre());
-		conexion.getSentencia().setInt(2, estudiante.getCod_Carrera());
-		conexion.getSentencia().setString(3, estudiante.getDirección());
-		conexion.modificacion();
 	}
 
 }
