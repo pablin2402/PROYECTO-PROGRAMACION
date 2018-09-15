@@ -1,6 +1,5 @@
 package Docente.view;
 
-import java.util.Date;
 import java.util.Scanner;
 
 import Docente.entity.Docente;
@@ -10,10 +9,15 @@ public class DocenteIO {
 
 	public static Docente ingresar(Scanner scanner) {
 		int cod_Docente = InputTypes.readInt("Ingrese el código del docente", scanner);
-
-		Date fecha_entrada = InputTypes.leerFecha(scanner, "Ingrese su fecha de entrada porfavor ");
+		System.out.println("");
+		System.out.println("EL FORMATO DE FECHA ES dia-mes-año");
+		System.out.println("");
+		String fecha_entrada = InputTypes.ReadString("Ingrese su fecha de entrada porfavor ", scanner);
 		String nombre = InputTypes.ReadString("Ingrese su nombre completo porfavor: ", scanner);
-		Date fecha_nacimiento = InputTypes.leerFecha(scanner, "Ingrese su fecha de nacimiento porfavor ");
+		System.out.println("");
+		System.out.println("EL FORMATO DE FECHA ES dia-mes-año");
+		System.out.println("");
+		String fecha_nacimiento = InputTypes.ReadString("Ingrese su fecha de nacimiento porfavor ", scanner);
 		String carrera = InputTypes.ReadString("Ingrese su carrera porfavor: ", scanner);
 		int CI = InputTypes.readInt("Ingrese su Cedula de Identidad, porfavor ", scanner);
 

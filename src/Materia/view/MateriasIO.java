@@ -5,6 +5,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Conexion.Conexion;
+import Materia.entity.Materia;
+import Materia.entity.NoExisteMateria;
+import VIEW.InputTypes;
 
 public class MateriasIO {
 	private Conexion conexion;
@@ -34,7 +37,71 @@ public class MateriasIO {
 			System.out.println("Número de Créditos: " + resultSet.getInt("m.Créditos"));
 			System.out.println("---------------------------------------------------------");
 		}
-
 	}
 
+	public void upload() throws NoExisteMateria, SQLException {
+
+		ResultSet resultSet;
+
+		Materia materia;
+		String nombre;
+		String horarios;
+		int Créditos;
+		int total_a_pagar;
+
+		int cod_Materia = InputTypes.readInt("Código de la materia: ", scanner);
+
+		String sql = "SELECT* FROM materia  WHERE cod_Materia =?";
+		System.out.println("Referencia de la materia que se modificará");
+		System.out.println("------------------------------------------");
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Materia);
+		resultSet = conexion.resultado();
+
+		if (resultSet.next()) {
+			nombre = resultSet.getString("Nombre");
+			horarios = resultSet.getString("Horario");
+			Créditos = resultSet.getInt("Créditos");
+
+			materia = new Materia(cod_Materia, nombre, null, null, horarios, Créditos, cod_Materia);
+		} else {
+			throw new NoExisteMateria("No hay");
+		}
+
+		System.out.println(materia);
+		Menú.menúModificar(scanner, materia);
+		/***
+		 * Actualizar materia
+		 */
+		sql = "UPDATE materia m" + " SET m.Nombre= ?," + "m.Horario= ?," + "m.Créditos=?"
+				+ " WHERE m.cod_Materia LIKE ?";
+
+		conexion.consulta(sql);
+		conexion.getSentencia().setString(1, materia.getNombre());
+		conexion.getSentencia().setString(2, materia.getHorarios());
+		conexion.getSentencia().setInt(3, materia.getCreditos());
+		conexion.getSentencia().setInt(4, materia.getCod_Materia());
+		conexion.modificacion();
+	}
+
+	public void add() {
+
+		Materia estudiante = MateriaIO.ingresar(scanner);
+		String sql = "INSERT INTO materia (cod_Materia, Nombre, Fecha_Inicio, Fecha_Final, Horario, Créditos, total_a_pagar) "
+				+ "values(?,?,?,?,?,?,?)";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, estudiante.getCod_Materia());
+			conexion.getSentencia().setString(2, estudiante.getNombre());
+			conexion.getSentencia().setString(3, estudiante.getFecha_inicio());
+			conexion.getSentencia().setString(4, estudiante.getFecha_fin());
+			conexion.getSentencia().setString(5, estudiante.getHorarios());
+			conexion.getSentencia().setInt(6, estudiante.getCreditos());
+			conexion.getSentencia().setInt(7, estudiante.getTotal_a_pagar());
+
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+	}
 }

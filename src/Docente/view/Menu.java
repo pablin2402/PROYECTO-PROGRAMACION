@@ -17,14 +17,13 @@ public class Menu {
 			System.out.println("1. Consultar Docentes");
 			System.out.println("2. Añadir Docente ");
 			System.out.println("3. Eliminar Docente ");
-			System.out.println("4. Modificar Docente ");
 
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 5) {
+			if (opcion >= 0 && opcion <= 3) {
 				return opcion;
 			}
 		}
@@ -50,6 +49,11 @@ public class Menu {
 				break;
 			case 1:
 				docentesView.list();
+				break;
+			case 2:
+				docentesView.add();
+				break;
+			case 3:
 				break;
 
 			}

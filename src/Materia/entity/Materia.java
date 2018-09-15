@@ -1,17 +1,15 @@
 package Materia.entity;
 
-import java.util.Date;
-
 public class Materia {
 	private int cod_Materia;
 	private String Nombre;
-	private Date fecha_inicio;
-	private Date fecha_fin;
+	private String fecha_inicio;
+	private String fecha_fin;
 	private String horarios;
 	private int Creditos;
 	private int total_a_pagar;
 
-	public Materia(int cod_Materia, String nombre, Date fecha_inicio, Date fecha_fin, String horarios, int creditos,
+	public Materia(int cod_Materia, String nombre, String fecha_inicio, String fecha_fin, String horarios, int creditos,
 			int total_a_pagar) {
 		super();
 		this.cod_Materia = cod_Materia;
@@ -39,19 +37,19 @@ public class Materia {
 		Nombre = nombre;
 	}
 
-	public Date getFecha_inicio() {
+	public String getFecha_inicio() {
 		return fecha_inicio;
 	}
 
-	public void setFecha_inicio(Date fecha_inicio) {
+	public void setFecha_inicio(String fecha_inicio) {
 		this.fecha_inicio = fecha_inicio;
 	}
 
-	public Date getFecha_fin() {
+	public String getFecha_fin() {
 		return fecha_fin;
 	}
 
-	public void setFecha_fin(Date fecha_fin) {
+	public void setFecha_fin(String fecha_fin) {
 		this.fecha_fin = fecha_fin;
 	}
 
@@ -85,5 +83,4 @@ public class Materia {
 				+ ", fecha_fin=" + fecha_fin + ", horarios=" + horarios + ", Creditos=" + Creditos + ", total_a_pagar="
 				+ total_a_pagar + "]";
 	}
-
 }

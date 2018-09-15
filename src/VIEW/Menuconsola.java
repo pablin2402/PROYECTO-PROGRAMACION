@@ -6,6 +6,7 @@ import java.util.Scanner;
 import Aula.entity.NoExisteAula;
 import Aula.view.AulasIO;
 import Carrera.view.CarrerasIO;
+import Clase.entity.NoExisteClase;
 import Clase.view.ClasesIO;
 import Conexion.Conexion;
 import Docente.consultas.Actualizar;
@@ -13,6 +14,7 @@ import Docente.view.DocentesIO;
 import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import Estudiante.view.EstudiantesIO;
+import Materia.entity.NoExisteMateria;
 import Materia.view.MateriasIO;
 
 public class Menuconsola {
@@ -45,22 +47,25 @@ public class Menuconsola {
 	 * @throws SQLException
 	 * @throws ClassNotFoundException
 	 * @throws NoExisteEstudiante
-	 * @throws NoExisteAula *
+	 * @throws NoExisteAula
+	 * @throws NoExisteMateria
+	 * @throws NoExisteClase *
 	 ****************************/
 
-	public static void menú(Scanner scanner)
-			throws SQLException, NoExisteEstudiante, NoExisteAula, ClassNotFoundException {
+	public static void menú(Scanner scanner) throws SQLException, NoExisteEstudiante, NoExisteAula,
+			ClassNotFoundException, NoExisteMateria, NoExisteClase {
 		boolean salir = false;
 		Conexion conexion = new Conexion("root", "", "universidad_oficial");
 
 		EstudiantesIO estudiantesIO = new EstudiantesIO(conexion, scanner);
 		Consulta consola = new Consulta();
 		Actualizar actualizar = new Actualizar();
-		AulasIO aulasIO = new AulasIO();
+		AulasIO aulasIO = new AulasIO(conexion, scanner);
 		CarrerasIO carrerasView = new CarrerasIO(conexion, scanner);
 		MateriasIO materiasIO = new MateriasIO(conexion, scanner);
 		DocentesIO docentesIO = new DocentesIO(conexion, scanner);
 		ClasesIO clasesIO = new ClasesIO(conexion, scanner);
+
 		while (!salir) {
 			switch (encabezado(scanner)) {
 			case 0:

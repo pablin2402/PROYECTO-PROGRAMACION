@@ -4,6 +4,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Carrera.entity.Carrera;
 import Conexion.Conexion;
 
 public class CarrerasIO {
@@ -32,6 +33,21 @@ public class CarrerasIO {
 			System.out.println("---------------------------------------------------------");
 		}
 
+	}
+
+	public void add() {
+
+		Carrera estudiante = CarreraIO.ingresar(scanner);
+		String sql = "INSERT INTO carrera (cod_Carreras, Nombre) " + "values(?,?)";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, estudiante.getCod_Carrera());
+			conexion.getSentencia().setString(2, estudiante.getNombre());
+
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
 	}
 
 }

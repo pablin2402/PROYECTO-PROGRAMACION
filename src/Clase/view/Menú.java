@@ -3,8 +3,9 @@ package Clase.view;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Clase.entity.Clase;
+import Clase.entity.NoExisteClase;
 import Estudiante.consultas.Consulta;
-import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
 import VIEW.InputTypes;
 
@@ -17,16 +18,16 @@ public class Menú {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
 			System.out.println("1. Consultar Inscritos");
-			System.out.println("2. Consultar clase ");
+			System.out.println("2. Modificar clase ");
 			System.out.println("3. Eliminar clase ");
-			System.out.println("4. Modificar clase ");
+			System.out.println("4. Añadir clase ");
 
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 5) {
+			if (opcion >= 0 && opcion <= 4) {
 				return opcion;
 			}
 		}
@@ -37,11 +38,12 @@ public class Menú {
 	 * 
 	 * @throws SQLException
 	 * @throws NoExisteEstudiante
-	 * @throws ClassNotFoundException *
+	 * @throws ClassNotFoundException
+	 * @throws NoExisteClase *
 	 ****************************/
 
 	public static void menú(Scanner scanner, ClasesIO clasesView, Consulta consulta)
-			throws SQLException, NoExisteEstudiante, ClassNotFoundException {
+			throws SQLException, NoExisteEstudiante, ClassNotFoundException, NoExisteClase {
 		boolean salir = false;
 
 		while (!salir) {
@@ -52,6 +54,14 @@ public class Menú {
 				break;
 			case 1:
 				clasesView.list();
+				break;
+			case 2:
+				clasesView.upload();
+				break;
+			case 3:
+				break;
+			case 4:
+				clasesView.add();
 				break;
 
 			}
@@ -68,14 +78,16 @@ public class Menú {
 		while (true) {
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Modificar ");
-			System.out.println("2. Modificar descripción ");
+			System.out.println("1. Modificar Materia");
+			System.out.println("2. Modificar Docente");
+			System.out.println("3. Modificar Aula");
+			System.out.println("4. Ingrese el código de Inscripción");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 2) {
+			if (opcion >= 0 && opcion <= 4) {
 				return opcion;
 			}
 		}
@@ -85,7 +97,7 @@ public class Menú {
 	 * Opciones del modificar *
 	 ****************************/
 
-	public static void menúModificar(Scanner scanner, Estudiante estudiante) {
+	public static void menúModificar(Scanner scanner, Clase clase) {
 
 		boolean salir = false;
 
@@ -95,13 +107,16 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				estudiante.setNombre(InputTypes.ReadString("Ingrese el nuevo nombre: ", scanner));
+				clase.setCod_Materia(InputTypes.readInt("Ingrese el código de materia: ", scanner));
 				break;
 			case 2:
-				estudiante.setDirección(InputTypes.ReadString("Ingrese la nueva direccion: ", scanner));
+				clase.setCod_Docente(InputTypes.readInt("Ingrese el código de docente: ", scanner));
 				break;
 			case 3:
-				estudiante.setCod_Carrera(InputTypes.readInt("Ingrese la nueva carrera: ", scanner));
+				clase.setCod_Aula(InputTypes.readInt("Ingrese el código de aula: ", scanner));
+				break;
+			case 4:
+				clase.setCod_Inscripción(InputTypes.readInt("Ingrese el código de inscripción", scanner));
 				break;
 
 			}

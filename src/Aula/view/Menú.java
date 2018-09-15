@@ -17,8 +17,8 @@ public class Menú {
 			System.out.println("****************AULA***************");
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Ingresar aula");
-			System.out.println("2. Consultar aula ");
+			System.out.println("1. Consultar aula");
+			System.out.println("2. Ingresar aula ");
 			System.out.println("3. Eliminar aula ");
 			System.out.println("4. Modificar aula ");
 
@@ -43,7 +43,7 @@ public class Menú {
 
 	public static void menú(Scanner scanner, AulasIO aulasView)
 
-			throws SQLException, NoExisteAula {
+			throws SQLException, NoExisteAula, ClassNotFoundException {
 		boolean salir = false;
 
 		while (!salir) {
@@ -53,13 +53,15 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-
+				aulasView.list();
 				break;
 			case 2:
+				aulasView.add();
 				break;
 			case 3:
 				break;
 			case 4:
+				aulasView.upload();
 				break;
 			}
 		}
@@ -77,14 +79,16 @@ public class Menú {
 			System.out.println("MODIFICAR AULA");
 			System.out.println("Ingrese una opcion: ");
 			System.out.println("------------------- ");
-			System.out.println("1. Modificar nombre del aula");
-			System.out.println("2. Modificar ubicación del aula ");
+			System.out.println("1. Modificar código del edificio");
+			System.out.println("2. Modificar nombre del aula ");
+			System.out.println("3. Modificar el nuevo piso");
+			System.out.println("4. Ingrese el código del aula");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 2) {
+			if (opcion >= 0 && opcion <= 4) {
 				return opcion;
 			}
 		}
@@ -104,14 +108,18 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				aula.setNombre(InputTypes.ReadString("Ingrese el nuevo nombre: ", scanner));
+				aula.setCod_edificio(InputTypes.readInt("Ingrese el código del nuevo edificio: ", scanner));
+
 				break;
 			case 2:
-				aula.setCod_edificio(InputTypes.readInt("Ingrese el código del nuevo edificio: ", scanner));
+				aula.setNombre(InputTypes.ReadString("Ingrese el nuevo nombre: ", scanner));
+
 				break;
 			case 3:
 				aula.setPiso(InputTypes.readInt("Ingrese el nuevo piso: ", scanner));
 				break;
+			case 4:
+				aula.setCod_Aula(InputTypes.readInt("Ingrese el código del aula: ", scanner));
 
 			}
 		}
