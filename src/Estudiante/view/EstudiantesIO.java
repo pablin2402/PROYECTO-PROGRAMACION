@@ -88,8 +88,7 @@ public class EstudiantesIO {
 		/***
 		 * Actualizar estudiante
 		 */
-		sql = "UPDATE estudiante e " + " SET e.cod_Carrera=?," + " e.Dirección= ?," + "e.Correo_electrónico= ?,"
-				+ " WHERE e.cod_Estudiante LIKE ?";
+		sql = "UPDATE estudiante e SET e.cod_Carrera, e.Nombre, e.Dirección, e.Correo_electrónico WHERE e.cod_Estudiante LIKE ";
 
 		conexion.consulta(sql);
 		conexion.getSentencia().setInt(1, estudiante.getCod_Carrera());

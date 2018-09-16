@@ -19,6 +19,12 @@ public class AulasIO {
 		this.scanner = scanner;
 	}
 
+	/************
+	 * Consultar datos del aula
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta("SELECT a.cod_Aula, a.cod_Edificio, a.Nombre, a.Piso\r\n" + "  FROM aula a");
@@ -39,6 +45,12 @@ public class AulasIO {
 
 	}
 
+	/*******
+	 * Actualizar datos del aula
+	 * 
+	 * @throws SQLException
+	 * @throws NoExisteAula
+	 */
 	public void upload() throws SQLException, NoExisteAula {
 
 		ResultSet resultSet;
@@ -86,6 +98,9 @@ public class AulasIO {
 		conexion.modificacion();
 	}
 
+	/*******
+	 * FALTA PULIR DETALLES EXCEPCIONES .V
+	 */
 	public void add() {
 
 		Aula estudiante = AulaIO.ingresar(scanner);

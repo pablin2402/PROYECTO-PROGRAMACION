@@ -3,7 +3,6 @@ package Docente.view;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Docente.consultas.Actualizar;
 import Estudiante.entity.NoExisteEstudiante;
 import VIEW.InputTypes;
 
@@ -37,7 +36,7 @@ public class Menu {
 	 * @throws ClassNotFoundException *
 	 ****************************/
 
-	public static void menú(Scanner scanner, DocentesIO docentesView, Actualizar consulta)
+	public static void menú(Scanner scanner, DocentesIO docentesView)
 			throws SQLException, NoExisteEstudiante, ClassNotFoundException {
 		boolean salir = false;
 
