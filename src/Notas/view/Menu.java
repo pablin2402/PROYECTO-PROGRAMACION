@@ -43,7 +43,7 @@ public class Menu {
 	 * @throws NoExisteMateria *
 	 ****************************/
 
-	public static void menú(Scanner scanner, NotasIO notas) throws SQLException, ClassNotFoundException, NoExisteNota {
+	public static void menú(Scanner scanner, NotasIO notas) {
 		boolean salir = false;
 
 		while (!salir) {
@@ -53,13 +53,27 @@ public class Menu {
 				salir = true;
 				break;
 			case 1:
-				notas.list();
+				try {
+					notas.list();
+				} catch (ClassNotFoundException | SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 2:
 				notas.add();
 				break;
 			case 3:
-				notas.upload();
+				try {
+					notas.upload();
+				} catch (NoExisteNota e) {
+					System.out.println();
+					System.out.println("No existe el código único de nota");
+					System.out.println();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
 			case 4:
 				break;

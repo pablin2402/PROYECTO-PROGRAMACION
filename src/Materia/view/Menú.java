@@ -3,7 +3,6 @@ package Materia.view;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import Materia.entity.Materia;
 import Materia.entity.NoExisteMateria;
@@ -21,13 +20,14 @@ public class Menú {
 			System.out.println("2. Modificar Materia ");
 			System.out.println("3. Eliminar Materia ");
 			System.out.println("4. Añadir Materia ");
+			System.out.println("5. Buscar Materia");
 
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 4) {
+			if (opcion >= 0 && opcion <= 5) {
 				return opcion;
 			}
 		}
@@ -42,8 +42,7 @@ public class Menú {
 	 * @throws NoExisteMateria *
 	 ****************************/
 
-	public static void menú(Scanner scanner, MateriasIO materiasView, Consulta consulta)
-			throws SQLException, NoExisteEstudiante, ClassNotFoundException, NoExisteMateria {
+	public static void menú(Scanner scanner, MateriasIO materiasView) {
 		boolean salir = false;
 
 		while (!salir) {
@@ -53,17 +52,43 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				materiasView.list();
+				try {
+					materiasView.list();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 2:
-				materiasView.upload();
+				try {
+					try {
+						materiasView.upload();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (NoExisteMateria e) {
+					System.out.println();
+					System.out.println("No existe la materia");
+					System.out.println();
+				}
 				break;
 			case 3:
 				break;
 			case 4:
 				materiasView.add();
 				break;
-
+			case 5:
+				try {
+					materiasView.buscar_materia();
+				} catch (NoExisteMateria e) {
+					System.out.println();
+					System.out.println("¡No existe la materia!");
+					System.out.println();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

@@ -117,4 +117,29 @@ public class AulasIO {
 			System.out.println(e.getSQLState());
 		}
 	}
+
+	public void buscar_aula() throws SQLException, NoExisteAula {
+		ResultSet resultSet;
+		Aula docente;
+		String fecha_entrada;
+		int cod_Aula;
+		int piso;
+		int cod_edificio;
+		String nombre = InputTypes.ReadString("Ingrese el nombre del Aula: ", scanner);
+
+		String sql = "select * from aula where Nombre = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setString(1, nombre);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			cod_Aula = resultSet.getInt("cod_Aula");
+			cod_edificio = resultSet.getInt("cod_Edificio");
+			piso = resultSet.getInt("Piso");
+
+			docente = new Aula(cod_Aula, cod_edificio, nombre, piso);
+		} else {
+			throw new NoExisteAula();
+		}
+		System.out.println(docente);
+	}
 }

@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Carrera.entity.Carrera;
+import Carrera.entity.NoExisteCarrera;
 import Conexion.Conexion;
+import VIEW.InputTypes;
 
 public class CarrerasIO {
 
@@ -15,6 +17,26 @@ public class CarrerasIO {
 	public CarrerasIO(Conexion conexion, Scanner scanner) {
 		this.conexion = conexion;
 		this.scanner = scanner;
+	}
+
+	public void buscar_carrera() throws SQLException, NoExisteCarrera {
+		ResultSet resultSet;
+		Carrera carrera;
+
+		String nombre = InputTypes.ReadString("Ingrese el nombre de la Carrera: ", scanner);
+
+		String sql = "select * from carrera where Nombre = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setString(1, nombre);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			int cod_Carrera = resultSet.getInt("cod_Carreras");
+
+			carrera = new Carrera(cod_Carrera, nombre);
+		} else {
+			throw new NoExisteCarrera();
+		}
+		System.out.println(carrera);
 	}
 
 	public void list() throws SQLException, ClassNotFoundException {

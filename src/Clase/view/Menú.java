@@ -5,7 +5,6 @@ import java.util.Scanner;
 
 import Clase.entity.Clase;
 import Clase.entity.NoExisteClase;
-import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import VIEW.InputTypes;
 
@@ -42,8 +41,7 @@ public class Menú {
 	 * @throws NoExisteClase *
 	 ****************************/
 
-	public static void menú(Scanner scanner, ClasesIO clasesView, Consulta consulta)
-			throws SQLException, NoExisteEstudiante, ClassNotFoundException, NoExisteClase {
+	public static void menú(Scanner scanner, ClasesIO clasesView) {
 		boolean salir = false;
 
 		while (!salir) {
@@ -53,10 +51,25 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				clasesView.list();
+				try {
+					clasesView.list();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 2:
-				clasesView.upload();
+				try {
+					clasesView.upload();
+				} catch (NoExisteClase e) {
+					System.out.println();
+					System.out.println("¡No existe la clase!");
+					System.out.println();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				break;
 			case 3:
 				break;

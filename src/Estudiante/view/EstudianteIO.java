@@ -6,10 +6,17 @@ import Estudiante.entity.Estudiante;
 import VIEW.InputTypes;
 
 public class EstudianteIO {
-
+	/***************
+	 * Ingresar nuevo estudiante
+	 * 
+	 * @param scanner
+	 * @return
+	 */
 	public static Estudiante ingresar(Scanner scanner) {
-
-		int cod_Estudiante = InputTypes.readInt("Ingrese el código del estudiante", scanner);
+		System.out.println("NOTA:");
+		System.out.println("En caso de que se repita el código del estudiante, el sistema no ingresará ningún alumno");
+		System.out.println("");
+		int cod_Estudiante = InputTypes.readInt("Ingrese el código del estudiante: ", scanner);
 		int cod_carrera = InputTypes.readInt("Ingrese el código de la carrera: ", scanner);
 		String nombre = InputTypes.ReadString("Ingrese su nombre completo porfavor ", scanner);
 		String dirección = InputTypes.ReadString("Ingrese su dirección porfavor: ", scanner);

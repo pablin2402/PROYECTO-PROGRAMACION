@@ -7,6 +7,16 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class InputTypes {
+	/*****
+	 * Date mysql
+	 * 
+	 * @param uDate
+	 * @return
+	 */
+	public static java.sql.Date cASqlDate(java.util.Date uDate) {
+		return new java.sql.Date(uDate.getTime());
+
+	}
 
 	public static int readInt(String msg, Scanner leer) {
 
@@ -19,7 +29,7 @@ public class InputTypes {
 				leer.nextLine();
 				break;
 			} catch (java.util.InputMismatchException e) {
-				System.out.println("Debe ingresar un codigo ");
+				System.out.println("Debe ingresar un valor de tipo entero ");
 				leer.nextLine();
 			}
 
@@ -46,7 +56,7 @@ public class InputTypes {
 				leer.nextLine();
 				break;
 			} catch (java.util.InputMismatchException e) {
-				System.out.println("Debe ingresar un codigo ");
+				System.out.println("Debe ingresar un valor de tipo double ");
 				leer.nextLine();
 			}
 

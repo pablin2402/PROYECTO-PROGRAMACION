@@ -3,21 +3,15 @@ package VIEW;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Aula.entity.NoExisteAula;
-import Clase.entity.NoExisteClase;
-import Estudiante.entity.NoExisteEstudiante;
-import Materia.entity.NoExisteMateria;
-import Notas.entity.NoExisteNota;
-
 public class Pantalla {
 
-	public static void main(String[] args) throws NoExisteEstudiante, NoExisteAula, ClassNotFoundException,
-			NoExisteMateria, NoExisteClase, NoExisteNota {
+	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
 
 		try {
 			VIEW.Menuconsola.menú(scanner);
-		} catch (SQLException e) {
+		} catch (ClassNotFoundException | SQLException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

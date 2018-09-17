@@ -4,9 +4,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import Carrera.entity.Carrera;
+import Carrera.entity.NoExisteCarrera;
 import Conexion.Conexion;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
+import Notas.entity.NoExisteNota;
+import Notas.entity.Nota;
 import VIEW.InputTypes;
 
 public class EstudiantesIO {
@@ -52,7 +56,7 @@ public class EstudiantesIO {
 	 * @throws SQLException
 	 * @throws NoExisteEstudiante
 	 */
-	public void upload() throws SQLException, NoExisteEstudiante {
+	public void upload() throws NoExisteEstudiante, SQLException {
 
 		ResultSet resultSet;
 
@@ -74,6 +78,7 @@ public class EstudiantesIO {
 
 		if (resultSet.next()) {
 			cod_Carrera = resultSet.getInt("cod_Carrera");
+			nombre = resultSet.getString("Nombre");
 			dirección = resultSet.getString("Dirección");
 			correoelectrónico = resultSet.getString("Correo_electrónico");
 
@@ -117,4 +122,92 @@ public class EstudiantesIO {
 			System.out.println(e.getSQLState());
 		}
 	}
+
+	public void listaalumnosporcarrera() throws SQLException, NoExisteEstudiante, NoExisteCarrera {
+		ResultSet resultSet;
+		Estudiante estudiante;
+		int cod_Carrera;
+		String nombre;
+		String dirección;
+		String correoelectrónico;
+		int cod_Estudiante = InputTypes.readInt("Código de estudiante: ", scanner);
+		String sql = "select * from estudiante where cod_Estudiante = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Estudiante);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			cod_Carrera = resultSet.getInt("cod_Carrera");
+			nombre = resultSet.getString("Nombre");
+			dirección = resultSet.getString("Dirección");
+			correoelectrónico = resultSet.getString("Correo_electrónico");
+
+			estudiante = new Estudiante(cod_Estudiante, cod_Carrera, nombre, dirección, correoelectrónico);
+		} else {
+			throw new NoExisteEstudiante();
+		}
+		System.out.println(estudiante);
+
+		Carrera carrera;
+
+		sql = "select * from carrera where cod_Carreras = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Carrera);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			nombre = resultSet.getString("Nombre");
+			carrera = new Carrera(cod_Carrera, nombre);
+			System.out.println(carrera);
+		} else {
+			throw new NoExisteCarrera();
+		}
+
+	}
+
+	public void consultarnotas() throws SQLException, NoExisteEstudiante, NoExisteNota {
+
+		ResultSet resultSet;
+		Estudiante estudiante;
+		int cod_Carrera;
+		String nombre;
+		String dirección;
+		String correoelectrónico;
+		int cod_Estudiante = InputTypes.readInt("Código de estudiante: ", scanner);
+		String sql = "select * from estudiante where cod_Estudiante = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Estudiante);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			cod_Carrera = resultSet.getInt("cod_Carrera");
+			nombre = resultSet.getString("Nombre");
+			dirección = resultSet.getString("Dirección");
+			correoelectrónico = resultSet.getString("Correo_electrónico");
+
+			estudiante = new Estudiante(cod_Estudiante, cod_Carrera, nombre, dirección, correoelectrónico);
+		} else {
+			throw new NoExisteEstudiante();
+		}
+		System.out.println(estudiante);
+
+		Nota carrera;
+
+		sql = "select * from notas where cod_Estudiante= ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Estudiante);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			int cod_Nota = resultSet.getInt("cod_Nota");
+			int cod_Docente = resultSet.getInt("cod_Docente");
+			cod_Estudiante = resultSet.getInt("cod_Estudiante");
+			int cod_Materia = resultSet.getInt("cod_Materia");
+			int nota = resultSet.getInt("nota");
+
+			carrera = new Nota(cod_Nota, cod_Docente, cod_Estudiante, cod_Materia, nota);
+
+			System.out.println(carrera);
+		} else {
+			throw new NoExisteNota();
+		}
+
+	}
+
 }

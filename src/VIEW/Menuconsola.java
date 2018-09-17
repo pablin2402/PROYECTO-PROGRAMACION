@@ -10,7 +10,6 @@ import Clase.entity.NoExisteClase;
 import Clase.view.ClasesIO;
 import Conexion.Conexion;
 import Docente.view.DocentesIO;
-import Estudiante.consultas.Consulta;
 import Estudiante.entity.NoExisteEstudiante;
 import Estudiante.view.EstudiantesIO;
 import Materia.entity.NoExisteMateria;
@@ -61,19 +60,19 @@ public class Menuconsola {
 	 * @throws NoExisteNota *
 	 ****************************/
 
-	public static void menú(Scanner scanner) throws SQLException, NoExisteEstudiante, NoExisteAula,
-			ClassNotFoundException, NoExisteMateria, NoExisteClase, NoExisteNota {
+	public static void menú(Scanner scanner) throws SQLException, ClassNotFoundException {
 		boolean salir = false;
 		Conexion conexion = new Conexion("root", "", "universidad_oficial");
 
 		EstudiantesIO estudiantesIO = new EstudiantesIO(conexion, scanner);
-		Consulta consola = new Consulta();
+
 		AulasIO aulasIO = new AulasIO(conexion, scanner);
 		CarrerasIO carrerasView = new CarrerasIO(conexion, scanner);
 		MateriasIO materiasIO = new MateriasIO(conexion, scanner);
 		DocentesIO docentesIO = new DocentesIO(conexion, scanner);
 		ClasesIO clasesIO = new ClasesIO(conexion, scanner);
 		NotasIO notas = new NotasIO(conexion, scanner);
+
 		while (!salir) {
 			switch (encabezado(scanner)) {
 			case 0:
@@ -82,15 +81,17 @@ public class Menuconsola {
 
 			case 1:
 
-				Estudiante.view.Menu.menú(scanner, estudiantesIO, consola);
+				Estudiante.view.Menu.menú(scanner, estudiantesIO);
 
 				break;
 			case 2:
-				Materia.view.Menú.menú(scanner, materiasIO, consola);
+
+				Materia.view.Menú.menú(scanner, materiasIO);
+
 			case 3:
 				Docente.view.Menu.menú(scanner, docentesIO);
 			case 4:
-				Clase.view.Menú.menú(scanner, clasesIO, consola);
+				Clase.view.Menú.menú(scanner, clasesIO);
 			case 5:
 				Aula.view.Menú.menú(scanner, aulasIO);
 			case 6:

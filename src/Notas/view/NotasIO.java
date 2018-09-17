@@ -100,7 +100,7 @@ public class NotasIO {
 			clase = new Nota(cod_Nota, cod_Docente, cod_Estudiante, cod_Materia, nota);
 
 		} else {
-			throw new NoExisteNota("");
+			throw new NoExisteNota();
 		}
 
 		System.out.println(clase);

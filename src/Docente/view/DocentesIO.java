@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import Conexion.Conexion;
 import Docente.entity.Docente;
+import Docente.entity.NoExisteDocente;
+import VIEW.InputTypes;
 
 public class DocentesIO {
 	private Conexion conexion;
@@ -16,6 +18,12 @@ public class DocentesIO {
 		this.scanner = scanner;
 	}
 
+	/***********
+	 * Listar docentes
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta(
@@ -57,5 +65,32 @@ public class DocentesIO {
 		} catch (SQLException e) {
 			System.out.println(e.getSQLState());
 		}
+	}
+
+	public void buscar_docente() throws SQLException, NoExisteDocente {
+		ResultSet resultSet;
+		Docente docente;
+		String fecha_entrada;
+		String fecha_nacimiento;
+		String carrera;
+		int cI;
+		String nombre;
+
+		int cod_Docente = InputTypes.readInt("Código del docente: ", scanner);
+		String sql = "select * from docentes where cod_Docente = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Docente);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			fecha_entrada = resultSet.getString("fecha_entrada");
+			nombre = resultSet.getString("Nombre");
+			fecha_nacimiento = resultSet.getString("fecha_nacimiento");
+			carrera = resultSet.getString("Carrera");
+			cI = resultSet.getInt("C.I");
+			docente = new Docente(cod_Docente, fecha_entrada, nombre, fecha_nacimiento, carrera, cI);
+		} else {
+			throw new NoExisteDocente();
+		}
+		System.out.println(docente);
 	}
 }

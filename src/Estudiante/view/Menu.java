@@ -3,9 +3,10 @@ package Estudiante.view;
 import java.sql.SQLException;
 import java.util.Scanner;
 
-import Estudiante.consultas.Consulta;
+import Carrera.entity.NoExisteCarrera;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
+import Notas.entity.NoExisteNota;
 import VIEW.InputTypes;
 
 public class Menu {
@@ -19,13 +20,14 @@ public class Menu {
 			System.out.println("2. Añadir Alumno nuevo ");
 			System.out.println("3. Eliminar Alumno ");
 			System.out.println("4. Modificar datos del Alumno ");
-
+			System.out.println("5. Buscar alumno");
+			System.out.println("6. Consultar Nota");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 4) {
+			if (opcion >= 0 && opcion <= 6) {
 				return opcion;
 			}
 		}
@@ -40,8 +42,7 @@ public class Menu {
 	 * @throws                        *
 	 ****************************/
 
-	public static void menú(Scanner scanner, EstudiantesIO estudiantesView, Consulta consulta)
-			throws SQLException, NoExisteEstudiante, ClassNotFoundException {
+	public static void menú(Scanner scanner, EstudiantesIO estudiantesView) {
 		boolean salir = false;
 
 		while (!salir) {
@@ -51,7 +52,15 @@ public class Menu {
 				salir = true;
 				break;
 			case 1:
-				estudiantesView.list();
+				try {
+					estudiantesView.list();
+				} catch (ClassNotFoundException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 
 				break;
 			case 2:
@@ -60,8 +69,45 @@ public class Menu {
 			case 3:
 				break;
 			case 4:
-				estudiantesView.upload();
+				try {
+					try {
+						estudiantesView.upload();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				} catch (NoExisteEstudiante e) {
+					System.out.println();
+					System.out.println("¡No existe el estudiante!");
+					System.out.println();
+				}
 				break;
+			case 5:
+				try {
+					estudiantesView.listaalumnosporcarrera();
+				} catch (NoExisteEstudiante e) {
+					System.out.println("¡No existe el estudiante!");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoExisteCarrera e) {
+					System.out.println("No existe la carrera");
+				}
+			case 6:
+				try {
+					estudiantesView.consultarnotas();
+				} catch (NoExisteNota e) {
+					System.out.println();
+					System.out.println(
+							"¡El estudiante no está inscrito en ninguna materia y por lo tanto no existe registro de notas!");
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoExisteEstudiante e) {
+					System.out.println();
+					System.out.println("¡No existe el estudiante!");
+					System.out.println();
+				}
 			}
 		}
 	}
@@ -92,7 +138,7 @@ public class Menu {
 
 		boolean salir = false;
 		/****
-		 * NOTA: FALTA EXCEPCION PARA CODIGO DE CARRERA
+		 * NOTA: FALT A EXCEPCION PARA CODIGO DE CARRERA
 		 * 
 		 */
 		while (!salir) {

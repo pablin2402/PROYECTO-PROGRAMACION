@@ -21,7 +21,7 @@ public class Menú {
 			System.out.println("2. Ingresar aula ");
 			System.out.println("3. Eliminar aula ");
 			System.out.println("4. Modificar aula ");
-
+			System.out.println("5. Buscar Aula");
 			System.out.println("0. Salir");
 			System.out.println();
 
@@ -41,9 +41,7 @@ public class Menú {
 	 * @throws ClassNotFoundException *
 	 ****************************/
 
-	public static void menú(Scanner scanner, AulasIO aulasView)
-
-			throws SQLException, NoExisteAula, ClassNotFoundException {
+	public static void menú(Scanner scanner, AulasIO aulasView) {
 		boolean salir = false;
 
 		while (!salir) {
@@ -53,7 +51,12 @@ public class Menú {
 				salir = true;
 				break;
 			case 1:
-				aulasView.list();
+				try {
+					aulasView.list();
+				} catch (ClassNotFoundException | SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				break;
 			case 2:
 				aulasView.add();
@@ -61,8 +64,28 @@ public class Menú {
 			case 3:
 				break;
 			case 4:
-				aulasView.upload();
+				try {
+					aulasView.upload();
+				} catch (NoExisteAula e) {
+					System.out.println();
+					System.out.println("!No existe el aula!");
+					System.out.println();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				break;
+			case 5:
+				try {
+					aulasView.buscar_aula();
+				} catch (NoExisteAula e) {
+					System.out.println();
+					System.out.println("¡No existe el aula!");
+					System.out.println();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}

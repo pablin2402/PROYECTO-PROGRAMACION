@@ -18,6 +18,38 @@ public class MateriasIO {
 		this.scanner = scanner;
 	}
 
+	/*************
+	 * Listar materias
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
+	public void buscar_materia() throws SQLException, NoExisteMateria {
+		ResultSet resultSet;
+		Materia materia;
+
+		String Nombre = InputTypes.ReadString("Nombre de la materia: ", scanner);
+		String sql = "select * from materia where Nombre = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setString(1, Nombre);
+		resultSet = conexion.resultado();
+
+		if (resultSet.next()) {
+			int cod_Materia = resultSet.getInt("cod_Materia");
+			String Nombre1 = resultSet.getString("Nombre");
+
+			String Fecha_inicio = resultSet.getString("Fecha_Inicio");
+			String Fecha_Final = resultSet.getString("Fecha_Final");
+			String horarios = resultSet.getString("Horario");
+			int Créditos = resultSet.getInt("Créditos");
+			int total_a_pagar = resultSet.getInt("total_a_pagar");
+			materia = new Materia(cod_Materia, Nombre1, Fecha_inicio, Fecha_Final, horarios, Créditos, total_a_pagar);
+		} else {
+			throw new NoExisteMateria();
+		}
+		System.out.println(materia);
+	}
+
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta(" SELECT m.cod_Materia, m.Nombre, m.Fecha_Inicio, m.Fecha_Final, m.Horario, m.Créditos\r\n"
@@ -39,6 +71,12 @@ public class MateriasIO {
 		}
 	}
 
+	/************
+	 * Actualiza los datos de la materia
+	 * 
+	 * @throws NoExisteMateria
+	 * @throws SQLException
+	 */
 	public void upload() throws NoExisteMateria, SQLException {
 
 		ResultSet resultSet;
@@ -65,7 +103,7 @@ public class MateriasIO {
 
 			materia = new Materia(cod_Materia, nombre, null, null, horarios, Créditos, cod_Materia);
 		} else {
-			throw new NoExisteMateria("No hay");
+			throw new NoExisteMateria();
 		}
 
 		System.out.println(materia);
@@ -84,6 +122,9 @@ public class MateriasIO {
 		conexion.modificacion();
 	}
 
+	/***********
+	 * Añadir materia
+	 */
 	public void add() {
 
 		Materia estudiante = MateriaIO.ingresar(scanner);
