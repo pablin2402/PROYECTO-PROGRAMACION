@@ -12,8 +12,10 @@ public class Menu {
 		int opcion;
 
 		while (true) {
+			System.out.println("");
+			System.out.println("--------- DOCENTE ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("---------------------------- ");
 			System.out.println("1. Consultar Docentes");
 			System.out.println("2. Añadir Docente ");
 			System.out.println("3. Eliminar Docente ");
@@ -58,7 +60,7 @@ public class Menu {
 				docentesView.add();
 				break;
 			case 3:
-
+				docentesView.delete();
 				break;
 			case 4:
 				try {

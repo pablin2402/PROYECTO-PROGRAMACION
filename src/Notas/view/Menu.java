@@ -15,8 +15,10 @@ public class Menu {
 		int opcion;
 
 		while (true) {
+			System.out.println("");
+			System.out.println("---------- NOTAS ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("--------------------------- ");
 			System.out.println("1. Consultar Notas");
 			System.out.println("2. Añadir Nota ");
 			System.out.println("3. Modificar Nota ");
@@ -76,6 +78,7 @@ public class Menu {
 				}
 				break;
 			case 4:
+				notas.delete();
 				break;
 
 			}
@@ -90,9 +93,11 @@ public class Menu {
 		int opcion;
 
 		while (true) {
-			System.out.println("--------------------");
+			System.out.println("");
+			System.out.println("---------- MODIFICAR NOTA ----------");
+			System.out.println("------------------------------------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("------------------------------------ ");
 			System.out.println("1. Modificar Nota");
 			System.out.println("2. Ingresa el código de la nota a modificar");
 			System.out.println("0. Salir");

@@ -45,6 +45,21 @@ public class DocentesIO {
 		}
 	}
 
+	/*********
+	 * Eliminar docente
+	 */
+	public void delete() {
+		int cod_Docente = InputTypes.readInt("Código del docente: ", scanner);
+		String sql = "delete from docentes where cod_Docente = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Docente);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+	}
+
 	/****************
 	 * AÑADIR DOCENTE
 	 */

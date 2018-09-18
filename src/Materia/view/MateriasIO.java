@@ -50,6 +50,12 @@ public class MateriasIO {
 		System.out.println(materia);
 	}
 
+	/***********
+	 * Listar todas las materias
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta(" SELECT m.cod_Materia, m.Nombre, m.Fecha_Inicio, m.Fecha_Final, m.Horario, m.Créditos\r\n"
@@ -120,6 +126,21 @@ public class MateriasIO {
 		conexion.getSentencia().setInt(3, materia.getCreditos());
 		conexion.getSentencia().setInt(4, materia.getCod_Materia());
 		conexion.modificacion();
+	}
+
+	/********
+	 * Eliminar materia
+	 */
+	public void delete() {
+		int cod_Materia = InputTypes.readInt("Código de la materia: ", scanner);
+		String sql = "delete from materia where cod_Materia = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Materia);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
 	}
 
 	/***********

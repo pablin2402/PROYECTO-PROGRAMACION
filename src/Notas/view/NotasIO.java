@@ -19,6 +19,12 @@ public class NotasIO {
 		this.scanner = scanner;
 	}
 
+	/************
+	 * Listar notas
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta(
@@ -41,7 +47,7 @@ public class NotasIO {
 	}
 
 	/*************
-	 * 
+	 * Añadir nota a un alumno "INSCRITO"
 	 */
 	public void add() {
 
@@ -117,4 +123,15 @@ public class NotasIO {
 		conexion.modificacion();
 	}
 
+	public void delete() {
+		int cod_Nota = InputTypes.readInt("Ingrese el Código de la nota que desea eliminar por favor: ", scanner);
+		String sql = "delete from notas where cod_Nota = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Nota);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+	}
 }

@@ -19,6 +19,21 @@ public class AulasIO {
 		this.scanner = scanner;
 	}
 
+	/******
+	 * Eliminar aula
+	 */
+	public void delete() {
+		int cod_Aula = InputTypes.readInt("Código del aula: ", scanner);
+		String sql = "delete from aula where cod_Aula = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Aula);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+	}
+
 	/************
 	 * Consultar datos del aula
 	 * 

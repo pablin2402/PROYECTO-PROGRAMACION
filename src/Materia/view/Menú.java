@@ -14,8 +14,10 @@ public class Menú {
 		int opcion;
 
 		while (true) {
+			System.out.println("");
+			System.out.println("---------- MATERIA ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("----------------------------- ");
 			System.out.println("1. Consultar Materia");
 			System.out.println("2. Modificar Materia ");
 			System.out.println("3. Eliminar Materia ");
@@ -74,6 +76,7 @@ public class Menú {
 				}
 				break;
 			case 3:
+				materiasView.delete();
 				break;
 			case 4:
 				materiasView.add();
@@ -101,9 +104,11 @@ public class Menú {
 		int opcion;
 
 		while (true) {
-			System.out.println("--------------------");
+			System.out.println("");
+			System.out.println("---------- MODIFICAR DATOS DE UNA MATERIA ----------");
+			System.out.println("----------------------------------------------------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("---------------------------------------------------- ");
 			System.out.println("1. Modificar nombre");
 			System.out.println("2. Modificar horario");
 			System.out.println("3. Modificar la cantidad de créditos");

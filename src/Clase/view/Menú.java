@@ -14,13 +14,14 @@ public class Menú {
 		int opcion;
 
 		while (true) {
+			System.out.println("");
+			System.out.println("---------- Clase ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("--------------------------- ");
 			System.out.println("1. Consultar Inscritos");
-			System.out.println("2. Modificar clase ");
-			System.out.println("3. Eliminar clase ");
-			System.out.println("4. Añadir clase ");
-
+			System.out.println("2. Modificar Alumno Inscrito ");
+			System.out.println("3. Eliminar Inscrito ");
+			System.out.println("4. Inscribir alumno ");
 			System.out.println("0. Salir");
 			System.out.println();
 
@@ -72,6 +73,7 @@ public class Menú {
 
 				break;
 			case 3:
+				clasesView.delete();
 				break;
 			case 4:
 				clasesView.add();
@@ -89,8 +91,9 @@ public class Menú {
 		int opcion;
 
 		while (true) {
+			System.out.println("---------- MODIFICAR CLASE ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("------------------------------------- ");
 			System.out.println("1. Modificar Materia");
 			System.out.println("2. Modificar Docente");
 			System.out.println("3. Modificar Aula");

@@ -6,6 +6,8 @@ import java.util.Scanner;
 
 import Carrera.entity.Carrera;
 import Carrera.entity.NoExisteCarrera;
+import Clase.entity.Clase;
+import Clase.entity.NoExisteClase;
 import Conexion.Conexion;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
@@ -101,6 +103,21 @@ public class EstudiantesIO {
 		conexion.getSentencia().setString(3, estudiante.getCorreoelectrónico());
 		conexion.getSentencia().setInt(4, estudiante.getCod_Estudiante());
 		conexion.modificacion();
+	}
+
+	/******
+	 * Eliminar un estudiante
+	 */
+	public void delete() {
+		int cod_Estudiante = InputTypes.readInt("Código del estudiante: ", scanner);
+		String sql = "delete from estudiante where cod_Estudiante = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Estudiante);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
 	}
 
 	/********
@@ -210,4 +227,50 @@ public class EstudiantesIO {
 
 	}
 
+	public void consultarinscritos() throws SQLException, NoExisteEstudiante, NoExisteClase {
+
+		ResultSet resultSet;
+		Estudiante estudiante;
+		int cod_Carrera;
+		String nombre;
+		String dirección;
+		String correoelectrónico;
+		int cod_Estudiante = InputTypes.readInt("Código de estudiante: ", scanner);
+		String sql = "select * from estudiante where cod_Estudiante = ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Estudiante);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			cod_Carrera = resultSet.getInt("cod_Carrera");
+			nombre = resultSet.getString("Nombre");
+			dirección = resultSet.getString("Dirección");
+			correoelectrónico = resultSet.getString("Correo_electrónico");
+
+			estudiante = new Estudiante(cod_Estudiante, cod_Carrera, nombre, dirección, correoelectrónico);
+		} else {
+			throw new NoExisteEstudiante();
+		}
+		System.out.println(estudiante);
+
+		Clase carrera;
+
+		sql = "select * from clase where cod_Estudiante= ?";
+		conexion.consulta(sql);
+		conexion.getSentencia().setInt(1, cod_Estudiante);
+		resultSet = conexion.resultado();
+		if (resultSet.next()) {
+			int cod_Materia = resultSet.getInt("cod_Materia");
+			int cod_Docente = resultSet.getInt("cod_Docente");
+			cod_Estudiante = resultSet.getInt("cod_Estudiante");
+			int cod_Aula = resultSet.getInt("cod_Aula");
+			int cod_Inscripción = resultSet.getInt("cod_Inscripción");
+
+			carrera = new Clase(cod_Materia, cod_Docente, cod_Estudiante, cod_Aula, cod_Inscripción);
+
+			System.out.println(carrera);
+		} else {
+			throw new NoExisteClase();
+		}
+
+	}
 }

@@ -18,6 +18,27 @@ public class ClasesIO {
 		this.scanner = scanner;
 	}
 
+	/********
+	 * Eliminar una clase
+	 */
+	public void delete() {
+		int cod_Inscripción = InputTypes.readInt("Código de la inscripción de la materia: ", scanner);
+		String sql = "delete from clase where cod_Inscripción = ?";
+		try {
+			conexion.consulta(sql);
+			conexion.getSentencia().setInt(1, cod_Inscripción);
+			conexion.modificacion();
+		} catch (SQLException e) {
+			System.out.println(e.getSQLState());
+		}
+	}
+
+	/*************
+	 * Muestra todas las clases que existen
+	 * 
+	 * @throws SQLException
+	 * @throws ClassNotFoundException
+	 */
 	public void list() throws SQLException, ClassNotFoundException {
 
 		conexion.consulta("SELECT m.Nombre,d.Nombre, e.Nombre,a.Nombre\r\n"
@@ -42,6 +63,12 @@ public class ClasesIO {
 
 	}
 
+	/*****************
+	 * Actualiza datos de la clasee
+	 * 
+	 * @throws SQLException
+	 * @throws NoExisteClase
+	 */
 	public void upload() throws SQLException, NoExisteClase {
 
 		ResultSet resultSet;

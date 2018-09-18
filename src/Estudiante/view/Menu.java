@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 
 import Carrera.entity.NoExisteCarrera;
+import Clase.entity.NoExisteClase;
 import Estudiante.entity.Estudiante;
 import Estudiante.entity.NoExisteEstudiante;
 import Notas.entity.NoExisteNota;
@@ -14,20 +15,23 @@ public class Menu {
 		int opcion;
 
 		while (true) {
+			System.out.println("");
+			System.out.println("---------- ALUMNO ----------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("---------------------------- ");
 			System.out.println("1. Consultar Alumno");
 			System.out.println("2. Añadir Alumno nuevo ");
 			System.out.println("3. Eliminar Alumno ");
 			System.out.println("4. Modificar datos del Alumno ");
 			System.out.println("5. Buscar alumno");
-			System.out.println("6. Consultar Nota");
+			System.out.println("6. Consultar Notas");
+			System.out.println("7. Ver materias en las que está inscrito");
 			System.out.println("0. Salir");
 			System.out.println();
 
 			opcion = InputTypes.readInt("¿Su opción? ", scanner);
 
-			if (opcion >= 0 && opcion <= 6) {
+			if (opcion >= 0 && opcion <= 7) {
 				return opcion;
 			}
 		}
@@ -67,6 +71,7 @@ public class Menu {
 				estudiantesView.add();
 				break;
 			case 3:
+				estudiantesView.delete();
 				break;
 			case 4:
 				try {
@@ -108,6 +113,20 @@ public class Menu {
 					System.out.println("¡No existe el estudiante!");
 					System.out.println();
 				}
+			case 7:
+				try {
+					estudiantesView.consultarinscritos();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (NoExisteEstudiante e) {
+					System.out.println();
+					System.out.println("El estudiante no se encuentra inscrito a ninguna materia");
+
+				} catch (NoExisteClase e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 			}
 		}
 	}
@@ -116,9 +135,11 @@ public class Menu {
 		int opcion;
 
 		while (true) {
-			System.out.println("--------------------");
+			System.out.println("");
+			System.out.println("---------- MODIFICAR DATOS DEL ALUMNO ----------");
+			System.out.println("------------------------------------------------");
 			System.out.println("Ingrese una opcion: ");
-			System.out.println("------------------- ");
+			System.out.println("------------------------------------------------ ");
 			System.out.println("1. Modificar Código de carrera");
 			System.out.println("2. Modificar dirección");
 			System.out.println("3. Modificar el correo electrónico");
