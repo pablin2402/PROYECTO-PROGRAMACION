@@ -72,7 +72,6 @@ public class Menuconsola {
 		DocentesIO docentesIO = new DocentesIO(conexion, scanner);
 		ClasesIO clasesIO = new ClasesIO(conexion, scanner);
 		NotasIO notas = new NotasIO(conexion, scanner);
-
 		while (!salir) {
 			switch (encabezado(scanner)) {
 			case 0:
@@ -98,6 +97,7 @@ public class Menuconsola {
 				Carrera.view.Menú.menú(scanner, carrerasView);
 			case 7:
 				Notas.view.Menu.menú(scanner, notas);
+
 			}
 			conexion.close();
 		}
